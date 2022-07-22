@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState, FormEvent } from 'react';
+import React from 'react';
 import { FormControlLabel, Checkbox, Button } from '@mui/material';
 import { CheckCircleOutline, CheckCircle } from '@mui/icons-material';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -19,29 +20,31 @@ interface agreedState {
 }
 
 function Agree() {
-  const renderCount = useRef<number>(0);
-  const [values, setValues] = useState<agreedState>({
-    info: false,
-    privacy: false,
+  const {
+    register,
+    watch,
+    setValue,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm<agreedState>({
+    mode: 'onChange',
+    defaultValues: { privacy: false, info: false },
   });
-  const { info, privacy } = values;
+  const [privacy, info] = watch(['privacy', 'info']);
 
-  useEffect(() => {
-    renderCount.current += 1;
-    console.log(renderCount.current);
-  });
-
-  const onSubmit = (event: FormEvent) => console.log(event);
+  const onSubmit: SubmitHandler<agreedState> = (data) => console.log(data);
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <FormControlLabel
         onClick={(e) => {
           e.preventDefault();
           if (privacy && info) {
-            setValues({ info: false, privacy: false });
+            setValue('info', false);
+            setValue('privacy', false, { shouldValidate: true });
           } else {
-            setValues({ info: true, privacy: true });
+            setValue('info', true);
+            setValue('privacy', true, { shouldValidate: true });
           }
         }}
         control={
@@ -55,7 +58,7 @@ function Agree() {
         label={<p>이용약관 모두 동의</p>}
       />
       <FormControlLabel
-        onChange={() => setValues((prev) => ({ ...prev, privacy: !prev.privacy }))}
+        {...register('privacy', { validate: (value) => value })}
         control={
           <Checkbox
             checked={privacy}
@@ -67,7 +70,7 @@ function Agree() {
         label={<p>개인정보 처리방침 고지 (필수)</p>}
       />
       <FormControlLabel
-        onChange={() => setValues((prev) => ({ ...prev, info: !prev.info }))}
+        {...register('info', { validate: (value) => value })}
         control={
           <Checkbox
             checked={info}
@@ -78,7 +81,7 @@ function Agree() {
         }
         label={<p>제3자 정보제공 동의 (필수)</p>}
       />
-      <Button type='submit' disabled={!(privacy && info)}>
+      <Button type='submit' disabled={!isValid}>
         제출하기
       </Button>
     </form>
