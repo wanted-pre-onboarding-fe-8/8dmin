@@ -9,20 +9,11 @@ export default function AdminLayout() {
     <Wrapper>
       <HeaderBar />
       <SideBar />
-      <Container>
-        <Outlet />
-      </Container>
+      <Outlet />
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
   display: flex;
-`;
-
-const Container = styled.div`
-  margin-top: 65px;
-  flex-grow: 1;
-  height: 100%;
-  overflow: auto;
 `;

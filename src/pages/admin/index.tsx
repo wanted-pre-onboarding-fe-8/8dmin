@@ -14,6 +14,9 @@ export default function Admin() {
 
 const Wrapper = styled.div`
   padding: 10px 30px;
+  margin-top: 65px;
+  flex-grow: 1;
+  height: 100%;
 `;
 
 const Header = styled.header`
