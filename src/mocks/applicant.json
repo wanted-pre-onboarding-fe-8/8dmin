@@ -1,0 +1,76 @@
+{
+  "applicants": [
+    {
+      "id": 1,
+      "application_date": "2022-07-22",
+      "name": "홍길동",
+      "gender": "남",
+      "registration_number": "1998-01-01",
+      "phone": "010-1234-5678",
+      "transportation": ["버스", "자전거", "도보", "전동킥보드", "택시", "KTX/기차", "자가용"],
+      "email": "wanted1@naver.com",
+      "city": "서울",
+      "district": "강남구"
+    },
+    {
+      "id": 2,
+      "application_date": "2022-07-22",
+      "name": "피카츄",
+      "gender": "여",
+      "registration_number": "1998-09-02",
+      "phone": "010-1231-1234",
+      "transportation": ["버스", "자전거"],
+      "email": "wanted2naver.com",
+      "city": "서울",
+      "district": "영등포구"
+    },
+    {
+      "id": 3,
+      "application_date": "2022-07-22",
+      "name": "김영미",
+      "gender": "여",
+      "registration_number": "1998-08-02",
+      "phone": "010-1231-1111",
+      "transportation": ["버스", "자전거"],
+      "email": "wanted2naver.com",
+      "city": "서울",
+      "district": "서초구"
+    },
+    {
+      "id": 4,
+      "application_date": "2022-07-22",
+      "name": "우영우",
+      "gender": "여",
+      "registration_number": "1998-06-02",
+      "phone": "010-1121-1254",
+      "transportation": ["택시"],
+      "email": "wanted4@naver.com",
+      "city": "경기",
+      "district": "부천시"
+    },
+    {
+      "id": 5,
+      "application_date": "2022-08-22",
+      "name": "손흥민",
+      "gender": "남",
+      "registration_number": "1998-04-02",
+      "phone": "010-1231-9876",
+      "transportation": ["도보"],
+      "email": "wanted5@naver.com",
+      "city": "서울",
+      "district": "노원구"
+    },
+    {
+      "id": 6,
+      "application_date": "2022-08-22",
+      "name": "탑건",
+      "gender": "남",
+      "registration_number": "1998-03-02",
+      "phone": "010-1231-1234",
+      "transportation": ["전동킥보드"],
+      "email": "wanted6@naver.com",
+      "city": "인천",
+      "district": "연수구"
+    }
+  ]
+}
