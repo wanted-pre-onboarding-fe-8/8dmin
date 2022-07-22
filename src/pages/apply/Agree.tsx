@@ -1,8 +1,7 @@
-import React, { useEffect, useState, MouseEvent, useRef } from 'react';
-import { FormControlLabel, Checkbox } from '@mui/material';
+import React, { useEffect, useRef } from 'react';
+import { FormControlLabel, Checkbox, Button } from '@mui/material';
 import { CheckCircleOutline, CheckCircle } from '@mui/icons-material';
-import { useForm, Controller } from 'react-hook-form';
-import { off } from 'process';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -16,22 +15,23 @@ const Field = ({ description }: { description: string }) => {
 };
 
 interface agreedState {
+  isAllAgreed: boolean;
   privacy: boolean;
   info: boolean;
 }
 
 function Agree() {
-  const { register, watch, setValue } = useForm<agreedState>({
-    defaultValues: { privacy: false, info: false },
+  const { register, watch, setValue, handleSubmit } = useForm<agreedState>({
+    defaultValues: { isAllAgreed: false, privacy: false, info: false },
   });
-  const [privacy, info] = watch(['privacy', 'info']);
-  const [isAllAgreed, setIsAllAgreed] = useState<boolean>(false);
+  const [isAllAgreed, privacy, info] = watch(['isAllAgreed', 'privacy', 'info']);
   const renderCount = useRef<number>(0);
 
   useEffect(() => {
     renderCount.current += 1;
     console.log(renderCount.current);
   });
+
   useEffect(() => {
     if (isAllAgreed) {
       setValue('privacy', true);
@@ -43,15 +43,18 @@ function Agree() {
   }, [isAllAgreed]);
 
   useEffect(() => {
-    setIsAllAgreed(privacy && info);
+    setValue('isAllAgreed', privacy && info);
   }, [privacy, info]);
 
+  const onSubmit: SubmitHandler<agreedState> = (data) => console.log(data);
+
   return (
-    <div>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <FormControlLabel
+        {...register('isAllAgreed')}
         onClick={(e) => {
           e.preventDefault();
-          setIsAllAgreed((pre) => !pre);
+          setValue('isAllAgreed', !isAllAgreed);
         }}
         control={
           <Checkbox
@@ -87,7 +90,10 @@ function Agree() {
         }
         label={<p>제3자 정보제공 동의 (필수)</p>}
       />
-    </div>
+      <Button type='submit' disabled={!isAllAgreed}>
+        제출하기
+      </Button>
+    </form>
   );
 }
 
