@@ -14,7 +14,6 @@ const Field = ({ description }: { description: string }) => {
 };
 
 interface agreedState {
-  isAllAgreed: boolean;
   privacy: boolean;
   info: boolean;
 }
@@ -24,26 +23,13 @@ function Agree() {
   const [values, setValues] = useState<agreedState>({
     info: false,
     privacy: false,
-    isAllAgreed: false,
   });
-  const { info, privacy, isAllAgreed } = values;
+  const { info, privacy } = values;
 
   useEffect(() => {
     renderCount.current += 1;
     console.log(renderCount.current);
   });
-
-  useEffect(() => {
-    if (isAllAgreed) {
-      setValues((prev) => ({ ...prev, info: true, privacy: true }));
-    } else if (privacy && info) {
-      setValues((prev) => ({ ...prev, info: false, privacy: false }));
-    }
-  }, [isAllAgreed]);
-
-  useEffect(() => {
-    setValues((prev) => ({ ...prev, isAllAgreed: prev.privacy && prev.info }));
-  }, [privacy, info]);
 
   const onSubmit = (event: FormEvent) => console.log(event);
 
@@ -52,12 +38,16 @@ function Agree() {
       <FormControlLabel
         onClick={(e) => {
           e.preventDefault();
-          setValues((prev) => ({ ...prev, isAllAgreed: !prev.isAllAgreed }));
+          if (privacy && info) {
+            setValues({ info: false, privacy: false });
+          } else {
+            setValues({ info: true, privacy: true });
+          }
         }}
         control={
           <Checkbox
             {...label}
-            checked={isAllAgreed}
+            checked={privacy && info}
             icon={<CheckCircleOutline />}
             checkedIcon={<CheckCircle />}
           />
@@ -88,7 +78,7 @@ function Agree() {
         }
         label={<p>제3자 정보제공 동의 (필수)</p>}
       />
-      <Button type='submit' disabled={!isAllAgreed}>
+      <Button type='submit' disabled={!(privacy && info)}>
         제출하기
       </Button>
     </form>
