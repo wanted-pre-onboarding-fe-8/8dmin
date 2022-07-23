@@ -71,6 +71,30 @@
       "email": "wanted6@naver.com",
       "city": "인천",
       "district": "연수구"
+    },
+    {
+      "id": 7,
+      "application_date": "2022-10-22",
+      "name": "2차모집 10월",
+      "gender": "남",
+      "registration_number": "1998-03-02",
+      "phone": "010-1231-1234",
+      "transportation": ["전동킥보드"],
+      "email": "wanted6@naver.com",
+      "city": "인천",
+      "district": "연수구"
+    },
+    {
+      "id": 8,
+      "application_date": "2022-11-22",
+      "name": "2차모집 11월",
+      "gender": "남",
+      "registration_number": "1998-03-02",
+      "phone": "010-1231-1234",
+      "transportation": ["전동킥보드"],
+      "email": "wanted6@naver.com",
+      "city": "인천",
+      "district": "연수구"
     }
   ]
 }
