@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import AdminLayout from '../layouts/AdminLayout';
 import Admin from '../pages/admin';
 import Apply from '../pages/apply';
 import Landing from '../pages/landing';
@@ -9,7 +10,9 @@ function DefaultRouter() {
     <Routes>
       <Route path='/' element={<Landing />} />
       <Route path='/apply' element={<Apply />} />
-      <Route path='/admin' element={<Admin />} />
+      <Route element={<AdminLayout />}>
+        <Route path='/admin' element={<Admin />} />
+      </Route>
     </Routes>
   );
 }
