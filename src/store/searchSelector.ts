@@ -1,13 +1,16 @@
 import { RecoilValue, selectorFamily } from 'recoil';
 import { MockCandidates } from './types';
-import { selectState, keywordState } from '.';
+import { selectState, keywordState } from '../store';
+import { SELECT_CONSTANTS } from '../utils/constants/data';
 
-const SELECT_DATE = '지원날짜';
-const SELECT_NAME = '지원자명';
-const SELECT_GENDER = '성별';
-const SELECT_BIRTH = '생년월일';
-const SELECT_TRANSPORTAION = '이용수단';
-const SELECT_REGION = '거주지';
+const {
+  SELECT_DATE,
+  SELECT_NAME,
+  SELECT_GENDER,
+  SELECT_BIRTH,
+  SELECT_TRANSPORTAION,
+  SELECT_REGION,
+} = SELECT_CONSTANTS;
 
 export const searchSelector = selectorFamily({
   key: 'searchSelector',

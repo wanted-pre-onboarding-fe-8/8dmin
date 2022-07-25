@@ -4,30 +4,32 @@ import styled from 'styled-components';
 
 import MenuBar from './menuBar';
 import mockdata from '../../mocks/applicant.json';
+import { ORDER_CONSTANTS } from '../../utils/constants/data';
 import { MockCandidates } from '../../store/types';
 import {
   allCandidateState,
   seriesState,
-  pageState,
   candidateSelector,
   searchSelector,
   sortCandidateSelector,
   pageNationSelector,
 } from '../../store';
 
-const ORDER_ID = 'id';
-const ORDER_NAME = 'name';
-const ORDER_APPLIED_AT = 'appliedAt';
-const ORDER_GENDER = 'gender';
-const ORDER_BIRTH = 'birth';
-const ORDER_EMAIL = 'email';
-const ORDER_REGION = 'region';
+const {
+  ORDER_ID,
+  ORDER_NAME,
+  ORDER_APPLIED_AT,
+  ORDER_GENDER,
+  ORDER_BIRTH,
+  ORDER_EMAIL,
+  ORDER_REGION,
+} = ORDER_CONSTANTS;
 
 export default function Admin() {
   const [applicants, setApplicants] = useRecoilState<MockCandidates | any>(allCandidateState);
   const [series, setSeries] = useRecoilState<number>(seriesState);
-  const [page, setPage] = useRecoilState(pageState);
-  const [order, setOrder] = useState(ORDER_ID);
+  const [page, setPage] = useState<number>(1);
+  const [order, setOrder] = useState<string>(ORDER_ID);
   const sortCandidates = useRecoilValue(
     sortCandidateSelector({
       candidates: searchSelector({
@@ -53,7 +55,7 @@ export default function Admin() {
     setSeries(series);
     setPage(1);
   };
-  const handleSortedClick = (orderKey: string) => {
+  const handleSortedClick = (orderKey: React.SetStateAction<string>) => {
     setOrder(orderKey);
   };
   const handlePageClick = (page: React.SetStateAction<number>) => {

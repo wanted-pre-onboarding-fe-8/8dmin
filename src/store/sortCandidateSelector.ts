@@ -1,13 +1,16 @@
 import { RecoilValue, selectorFamily } from 'recoil';
 import { MockCandidates } from './types';
+import { ORDER_CONSTANTS } from '../utils/constants/data';
 
-const ORDER_ID = 'id';
-const ORDER_NAME = 'name';
-const ORDER_APPLIED_AT = 'appliedAt';
-const ORDER_GENDER = 'gender';
-const ORDER_BIRTH = 'birth';
-const ORDER_EMAIL = 'email';
-const ORDER_REGION = 'region';
+const {
+  ORDER_ID,
+  ORDER_NAME,
+  ORDER_APPLIED_AT,
+  ORDER_GENDER,
+  ORDER_BIRTH,
+  ORDER_EMAIL,
+  ORDER_REGION,
+} = ORDER_CONSTANTS;
 
 export const sortCandidateSelector = selectorFamily({
   key: 'sortCandidateSelector',
