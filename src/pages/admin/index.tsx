@@ -1,13 +1,101 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+
 import MenuBar from './menuBar';
+import mockdata from '../../mocks/applicant.json';
+import { MockCandidates } from '../../store/types';
+import {
+  allCandidateState,
+  seriesState,
+  pageState,
+  candidateSelector,
+  searchSelector,
+  sortCandidateSelector,
+  pageNationSelector,
+} from '../../store';
+
+const ORDER_ID = 'id';
+const ORDER_NAME = 'name';
+const ORDER_APPLIED_AT = 'appliedAt';
+const ORDER_GENDER = 'gender';
+const ORDER_BIRTH = 'birth';
+const ORDER_EMAIL = 'email';
+const ORDER_REGION = 'region';
 
 export default function Admin() {
+  const [applicants, setApplicants] = useRecoilState<MockCandidates | any>(allCandidateState);
+  const [series, setSeries] = useRecoilState<number>(seriesState);
+  const [page, setPage] = useRecoilState(pageState);
+  const [order, setOrder] = useState(ORDER_ID);
+  const sortCandidates = useRecoilValue(
+    sortCandidateSelector({
+      candidates: searchSelector({
+        candidates: candidateSelector(series),
+      }),
+      order: order,
+    }),
+  );
+  const pageRange = Math.ceil(sortCandidates.length / 10);
+  const pageNationCandidates = useRecoilValue(
+    pageNationSelector({
+      candidates: sortCandidateSelector({
+        candidates: searchSelector({
+          candidates: candidateSelector(series),
+        }),
+        order: order,
+      }),
+      page: page,
+    }),
+  );
+
+  const handleSeriesClick = (series: React.SetStateAction<number>) => {
+    setSeries(series);
+    setPage(1);
+  };
+  const handleSortedClick = (orderKey: string) => {
+    setOrder(orderKey);
+  };
+  const handlePageClick = (page: React.SetStateAction<number>) => {
+    setPage(page);
+  };
+  const handlePage = () => {
+    const pageNumber = [];
+    for (let i = 1; i <= pageRange; i++) {
+      pageNumber.push(
+        <button key={i} onClick={() => handlePageClick(i)}>
+          {i}
+        </button>,
+      );
+    }
+    return pageNumber;
+  };
+
+  useEffect(() => {
+    setApplicants(mockdata.applicants);
+  }, []);
+
+  console.log('pageNationCandidate', pageNationCandidates);
   return (
     <Wrapper>
       <Header>AI 학습용 교통 데이터 수집을 위한 클라우드 워커 지원 현황</Header>
       <MenuBar />
       {/* table */}
+      <br />
+      <br />
+      <button onClick={() => handleSeriesClick(1)}>1차 모집</button>
+      <button onClick={() => handleSeriesClick(2)}>2차 모집</button>
+      <br />
+      <br />
+      <button onClick={() => handleSortedClick(ORDER_ID)}>전체</button>
+      <button onClick={() => handleSortedClick(ORDER_NAME)}>이름</button>
+      <button onClick={() => handleSortedClick(ORDER_APPLIED_AT)}>지원날짜</button>
+      <button onClick={() => handleSortedClick(ORDER_GENDER)}>성별</button>
+      <button onClick={() => handleSortedClick(ORDER_BIRTH)}>생년월일</button>
+      <br />
+      <br />
+      <span>{pageNationCandidates.map((candidate) => `${candidate.name} `)}</span>
+      <div>{handlePage()}</div>
     </Wrapper>
   );
 }
