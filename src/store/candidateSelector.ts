@@ -1,5 +1,5 @@
 import { selectorFamily } from 'recoil';
-import { allCandidateState } from '.';
+import { allCandidateState } from '../store';
 
 export const candidateSelector = selectorFamily({
   key: 'candidateSelector/Series',

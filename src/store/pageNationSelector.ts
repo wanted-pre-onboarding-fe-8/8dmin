@@ -2,7 +2,7 @@ import { RecoilValue, selectorFamily } from 'recoil';
 import { MockCandidates } from './types';
 
 const STANDARD_NUMBER = 10;
-export const pageNationSelector = selectorFamily({
+const pageNationSelector = selectorFamily({
   key: 'pageNationSelector',
   get:
     ({ candidates, page }: { candidates: RecoilValue<MockCandidates>; page: number }) =>
@@ -11,3 +11,4 @@ export const pageNationSelector = selectorFamily({
       return candidateState.slice(page * STANDARD_NUMBER - STANDARD_NUMBER, page * STANDARD_NUMBER);
     },
 });
+export default pageNationSelector;
