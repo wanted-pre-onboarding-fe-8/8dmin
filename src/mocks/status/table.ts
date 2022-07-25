@@ -1,0 +1,3 @@
+const MOCK_SERIES_COUNT = 100;
+
+export { MOCK_SERIES_COUNT };
