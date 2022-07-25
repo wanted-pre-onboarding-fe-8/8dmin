@@ -1,8 +1,8 @@
 import React from 'react';
 import { CSVLink } from 'react-csv';
+import { TABLE_HEADERS } from '../utils/constants/table';
 
 interface CsvProps {
-  headers: { label: string; key: string }[];
   data: {
     num: number;
     date: string;
@@ -11,13 +11,13 @@ interface CsvProps {
     brith: string;
     phone: string;
     email: string;
-    vehicle: string[];
+    vehicle: string | string[];
     residence: string;
-    statis: boolean;
+    status: boolean;
   }[];
 }
 
-function Csv({ headers, data }: CsvProps) {
+function Csv({ data }: CsvProps) {
   const handleClick = () => {
     const downloadCheck = confirm('엑셀을 다운로드 하시겠습니까?');
 
@@ -29,7 +29,7 @@ function Csv({ headers, data }: CsvProps) {
   return (
     <CSVLink
       filename='크라우드워커 지원현황.csv'
-      headers={headers}
+      headers={TABLE_HEADERS}
       data={data}
       onClick={handleClick}
     >
