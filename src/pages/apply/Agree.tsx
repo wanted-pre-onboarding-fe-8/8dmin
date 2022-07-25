@@ -15,9 +15,14 @@ const Field = ({ description }: { description: string }) => {
   );
 };
 
+export const POLICY = {
+  PRIVACY: 'privacy',
+  AGREEMENT: 'agreement',
+} as const;
+
 interface agreedState {
-  privacy: boolean;
-  info: boolean;
+  [POLICY.PRIVACY]: boolean;
+  [POLICY.AGREEMENT]: boolean;
 }
 
 function Agree() {
@@ -29,11 +34,11 @@ function Agree() {
     formState: { isValid },
   } = useForm<agreedState>({
     mode: 'onChange',
-    defaultValues: { privacy: false, info: false },
+    defaultValues: { [POLICY.PRIVACY]: false, [POLICY.AGREEMENT]: false },
   });
-  const [privacy, info] = watch(['privacy', 'info']);
+  const [privacy, info] = watch([POLICY.PRIVACY, POLICY.AGREEMENT]);
   const [open, setOpen] = useState<boolean>(false);
-  const [mode, setMode] = useState<'policy' | 'agreement'>('policy');
+  const [mode, setMode] = useState<typeof POLICY.PRIVACY | typeof POLICY.AGREEMENT>(POLICY.PRIVACY);
   const onSubmit: SubmitHandler<agreedState> = (data) => console.log(data);
 
   return (
@@ -43,11 +48,11 @@ function Agree() {
           onClick={(e) => {
             e.preventDefault();
             if (privacy && info) {
-              setValue('info', false);
-              setValue('privacy', false, { shouldValidate: true });
+              setValue(POLICY.AGREEMENT, false);
+              setValue(POLICY.PRIVACY, false, { shouldValidate: true });
             } else {
-              setValue('info', true);
-              setValue('privacy', true, { shouldValidate: true });
+              setValue(POLICY.AGREEMENT, true);
+              setValue(POLICY.PRIVACY, true, { shouldValidate: true });
             }
           }}
           control={
@@ -61,7 +66,7 @@ function Agree() {
           label={<p>이용약관 모두 동의</p>}
         />
         <FormControlLabel
-          {...register('privacy', { validate: (value) => value })}
+          {...register(POLICY.PRIVACY, { validate: (value) => value })}
           control={
             <Checkbox
               checked={privacy}
@@ -75,14 +80,14 @@ function Agree() {
 
         <IconButton
           onClick={() => {
-            setMode('policy');
+            setMode(POLICY.PRIVACY);
             setOpen(true);
           }}
         >
           <ArrowForwardIos />
         </IconButton>
         <FormControlLabel
-          {...register('info', { validate: (value) => value })}
+          {...register(POLICY.AGREEMENT, { validate: (value) => value })}
           control={
             <Checkbox
               checked={info}
@@ -95,7 +100,7 @@ function Agree() {
         />
         <IconButton
           onClick={() => {
-            setMode('agreement');
+            setMode(POLICY.AGREEMENT);
             setOpen(true);
           }}
         >
