@@ -1,7 +1,6 @@
 import React from 'react';
+import UserInfo from './UserInfo';
 
-function Apply() {
-  return <div>Apply</div>;
+export default function index() {
+  return <UserInfo />;
 }
-
-export default Apply;
