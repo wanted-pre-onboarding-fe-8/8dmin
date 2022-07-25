@@ -1,6 +1,7 @@
 import React from 'react';
 import MuiTabs from '@mui/material/Tabs';
 import MuiTab from '@mui/material/Tab';
+import { styled } from '@mui/system';
 interface TabProps {
   length: number;
 }
@@ -32,10 +33,15 @@ function createTabList(length: number) {
 
   for (let index = 0; index < length; index++) {
     const label = `${index + 1}차 모집`;
-    tabList.push(<MuiTab key={index} label={label} />);
+    tabList.push(<StyledMuiTab key={index} label={label} />);
   }
 
   return tabList;
 }
 
 export default Tab;
+
+const StyledMuiTab = styled(MuiTab)`
+  flex: 1;
+  min-width: 160px;
+`;
