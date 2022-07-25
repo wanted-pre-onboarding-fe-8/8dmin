@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dialog, AppBar, Toolbar, IconButton, Typography } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { POLICY } from './Agree';
+import { POLICY } from '../../utils/input';
 
 interface noticeProps {
   mode: typeof POLICY.PRIVACY | typeof POLICY.AGREEMENT;

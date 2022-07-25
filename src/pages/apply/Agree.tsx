@@ -3,13 +3,9 @@ import { FormControlLabel, Checkbox, Button, IconButton } from '@mui/material';
 import { CheckCircleOutline, CheckCircle, ArrowForwardIos } from '@mui/icons-material';
 import { SubmitHandler, useForm, UseFormRegisterReturn } from 'react-hook-form';
 import { Notice, NoticeModal } from './Notice';
+import { POLICY } from '../../utils/input';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
-export const POLICY = {
-  PRIVACY: 'privacy',
-  AGREEMENT: 'agreement',
-} as const;
 
 interface agreedState {
   [POLICY.PRIVACY]: boolean;

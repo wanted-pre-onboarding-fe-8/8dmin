@@ -71,3 +71,19 @@ export const GENDER = {
   FEMALE: '여자',
   MALE: '남자',
 } as const;
+
+export const TRANSPORTATION = {
+  BUS: '버스',
+  SUBWAY: '지하철',
+  TAXI: '택시',
+  TRAIL: 'KTX/기차',
+  WALKING: '도보',
+  BYCYCLE: '자전거',
+  CAR: '자가용',
+  ELECTRIC_KICK_SCOOOTER: '전동 킥보드',
+} as const;
+
+export const POLICY = {
+  PRIVACY: 'privacy',
+  AGREEMENT: 'agreement',
+} as const;
