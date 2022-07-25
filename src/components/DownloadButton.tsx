@@ -2,7 +2,7 @@ import React from 'react';
 import { CSVLink } from 'react-csv';
 import { TABLE_HEADERS } from '../utils/constants/table';
 
-interface CsvProps {
+interface DownloadButtonProps {
   data: {
     num: number;
     date: string;
@@ -17,7 +17,7 @@ interface CsvProps {
   }[];
 }
 
-function Csv({ data }: CsvProps) {
+function DownloadButton({ data }: DownloadButtonProps) {
   const handleClick = () => {
     const downloadCheck = confirm('엑셀을 다운로드 하시겠습니까?');
 
@@ -38,4 +38,4 @@ function Csv({ data }: CsvProps) {
   );
 }
 
-export default Csv;
+export default DownloadButton;
