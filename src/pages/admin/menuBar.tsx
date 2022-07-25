@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,13 +10,18 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 
+import { useRecoilState } from 'recoil';
+import { selectState } from '../../store';
+
 const selectOptions = ['지원날짜', '지원자명', '성별', '생년월일', '이용수단', '거주지'];
 
 export default function MenuBar() {
   const [select, setSelect] = React.useState('지원날짜');
+  const [selecState, setSelectState] = useRecoilState(selectState);
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelect(event.target.value);
+    setSelectState(event.target.value);
   };
 
   return (
