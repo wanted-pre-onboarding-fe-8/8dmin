@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useForm, DeepRequired, FieldErrorsImpl } from 'react-hook-form';
-import { SETTINGS, GENDER } from '../../utils/input';
+import { SETTINGS, GENDER, ADDRESS } from '../../utils/input';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { useModal, Modal } from '../../components/Modal';
+import AddressPicker from './AddressPicker';
 import TextField from '@mui/material/TextField';
 
 interface IFormData {
@@ -28,50 +30,56 @@ function UserInfo() {
     console.log(data);
   };
 
+  const { isOpen, isFadeIn, openModal, closeModal } = useModal();
+  const handleAddressSelect = (address: string) => {
+    closeModal();
+
+    setValue(ADDRESS.key, address);
+    clearErrors(ADDRESS.key);
+  };
+
   return (
-    <Form onSubmit={handleSubmit(handleValid)}>
-      {SETTINGS.map(({ key, title, placeholder, readOnly, option }) => {
-        return (
-          <InputWrapper key={key}>
-            <InputTitle>{title}</InputTitle>
-            <TextField
-              {...register(key, option)}
-              autoComplete='off'
-              id='standard-error-helper-text'
-              variant='standard'
-              placeholder={placeholder}
-              error={!!errors[key]}
-              helperText={getErrorMessage(errors, key)}
-              inputProps={{ readOnly }}
-              onClick={
-                readOnly
-                  ? () => {
-                      setValue(key, '미국');
-                      clearErrors(key);
-                    }
-                  : undefined
-              }
+    <>
+      <Form onSubmit={handleSubmit(handleValid)}>
+        {SETTINGS.map(({ key, title, placeholder, readOnly, option }) => {
+          return (
+            <InputWrapper key={key}>
+              <InputTitle>{title}</InputTitle>
+              <TextField
+                {...register(key, option)}
+                autoComplete='off'
+                id='standard-error-helper-text'
+                variant='standard'
+                placeholder={placeholder}
+                error={!!errors[key]}
+                helperText={getErrorMessage(errors, key)}
+                inputProps={{ readOnly }}
+                onClick={readOnly ? () => openModal() : undefined}
+              />
+            </InputWrapper>
+          );
+        })}
+        <InputWrapper>
+          <InputTitle>{GENDER.TITLE}</InputTitle>
+          <RadioWrapper row defaultValue={GENDER.FEMALE}>
+            <FormControlLabel
+              value={GENDER.FEMALE}
+              label={GENDER.FEMALE}
+              control={<Radio {...register(GENDER.KEY)} />}
             />
-          </InputWrapper>
-        );
-      })}
-      <InputWrapper>
-        <InputTitle>{GENDER.TITLE}</InputTitle>
-        <RadioWrapper row defaultValue={GENDER.FEMALE}>
-          <FormControlLabel
-            value={GENDER.FEMALE}
-            label={GENDER.FEMALE}
-            control={<Radio {...register(GENDER.KEY)} />}
-          />
-          <FormControlLabel
-            value={GENDER.MALE}
-            label={GENDER.MALE}
-            control={<Radio {...register(GENDER.KEY)} />}
-          />
-        </RadioWrapper>
-      </InputWrapper>
-      <Button>제출</Button>
-    </Form>
+            <FormControlLabel
+              value={GENDER.MALE}
+              label={GENDER.MALE}
+              control={<Radio {...register(GENDER.KEY)} />}
+            />
+          </RadioWrapper>
+        </InputWrapper>
+        <Button>제출</Button>
+      </Form>
+      <Modal isOpen={isOpen} isFadeIn={isFadeIn} closeModal={closeModal}>
+        <AddressPicker handleAddressSelect={handleAddressSelect} />
+      </Modal>
+    </>
   );
 }
 
