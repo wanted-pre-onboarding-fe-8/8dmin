@@ -8,6 +8,7 @@ import AgreeField from './Agree';
 import { useModal, Modal } from '../../components/Modal';
 import AddressPicker from './AddressPicker';
 import TextField from '@mui/material/TextField';
+import CompleteNotice from './CompleteNotice';
 
 interface IFormData {
   [key: string]: string | string[];
@@ -44,11 +45,12 @@ function UserInfo() {
   });
   const [isAllAgreed, setIsAllAgreed] = useState<boolean>(false);
 
-  const handleValid = (data: IFormData) => {
-    console.log(data);
-  };
-
   const { isOpen, isFadeIn, openModal, closeModal } = useModal();
+  const {
+    isOpen: isCompleteNoticeOpen,
+    openModal: openCompleteNoticeModal,
+    closeModal: closeCompleteNoticeModal,
+  } = useModal();
   const handleAddressSelect = (address: string) => {
     closeModal();
     setValue(ADDRESS.key, address, { shouldDirty: true });
@@ -63,6 +65,13 @@ function UserInfo() {
 
   const checkAllAgreed = (agree: boolean) => {
     setIsAllAgreed(agree);
+  };
+
+  const isValid = checkAllInputEntered(dirtyFields) && isAllAgreed;
+
+  const handleValid = (data: IFormData) => {
+    console.log(data);
+    openCompleteNoticeModal();
   };
 
   return (
@@ -111,16 +120,20 @@ function UserInfo() {
         <InputWrapper>
           <AgreeField checkAllAgreed={checkAllAgreed} />
         </InputWrapper>
-        <Button
-          type='submit'
-          isValid={true}
-          disabled={!checkAllInputEntered(dirtyFields) || !isAllAgreed}
-        >
+        <Button type='submit' isValid={isValid} disabled={!isValid}>
           제출하기
         </Button>
       </Form>
-      <Modal isOpen={isOpen} isFadeIn={isFadeIn} closeModal={closeModal}>
+      <Modal isOpen={isOpen} isFadeIn={isFadeIn} boxPosition={'bottom'} closeModal={closeModal}>
         <AddressPicker handleAddressSelect={handleAddressSelect} closeModal={closeModal} />
+      </Modal>
+      <Modal
+        isOpen={isCompleteNoticeOpen}
+        isFadeIn={true}
+        boxPosition={'mid'}
+        closeModal={closeCompleteNoticeModal}
+      >
+        <CompleteNotice closeModal={closeCompleteNoticeModal} />
       </Modal>
     </>
   );
