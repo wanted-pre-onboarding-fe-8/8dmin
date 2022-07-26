@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Path, useForm, UseFormRegister } from 'react-hook-form';
-import { TRANSPORTATION } from '../../utils/input/index';
+import { Path, UseFormRegisterReturn } from 'react-hook-form';
+import { TRANSPORTATION, TRANSPORTATION_SETTING } from '../../utils/input/index';
 
 interface StateType {
   transportation: string[];
@@ -9,23 +9,18 @@ interface StateType {
 
 interface InputProps {
   label: Path<StateType>;
-  register: UseFormRegister<StateType>;
+  register: UseFormRegisterReturn<typeof TRANSPORTATION_SETTING.KEY>;
   value: string;
 }
 
-function Transportation() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<StateType>({
-    defaultValues: { transportation: [] },
-  });
+interface TransportationProps {
+  register: UseFormRegisterReturn<typeof TRANSPORTATION_SETTING.KEY>;
+}
 
+function TransportationField({ register }: TransportationProps) {
   const transportationList = Object.values(TRANSPORTATION);
-
   return (
-    <form onSubmit={handleSubmit(console.log)}>
+    <Wrapper>
       {transportationList.map((transportation) => (
         <TransportationOptions
           key={transportation}
@@ -34,22 +29,14 @@ function Transportation() {
           value={transportation}
         />
       ))}
-      {errors.transportation && <div style={{ color: 'red' }}>하나 이상의 선택을 해주세요</div>}
-      <button type='submit'>submit</button>
-    </form>
+    </Wrapper>
   );
 }
 
-const TransportationOptions = ({ label, register, value }: InputProps) => {
+const TransportationOptions = ({ register, value }: InputProps) => {
   return (
     <span>
-      <TransportationCheckbox
-        {...register(label, {
-          validate: (val) => !!val.length,
-        })}
-        id={value}
-        value={value}
-      />
+      <TransportationCheckbox {...register} id={value} value={value} />
       <label htmlFor={value}>
         <TransportationOption>{value}</TransportationOption>
       </label>
@@ -57,12 +44,19 @@ const TransportationOptions = ({ label, register, value }: InputProps) => {
   );
 };
 
-export default Transportation;
+export default TransportationField;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-basis: auto;
+  flex-wrap: wrap;
+  gap: 10px;
+`;
 
 const TransportationCheckbox = styled.input.attrs({ type: 'checkbox' })`
   display: none;
   &:checked + label > span {
-    background-color: #90caf9;
+    background-color: #1976d2;
     color: white;
   }
 `;
@@ -70,7 +64,7 @@ const TransportationCheckbox = styled.input.attrs({ type: 'checkbox' })`
 const TransportationOption = styled.span`
   display: inline-block;
   padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #90caf9;
+  border-radius: 20px;
+  border: 1px solid #1976d2;
   cursor: pointer;
 `;
