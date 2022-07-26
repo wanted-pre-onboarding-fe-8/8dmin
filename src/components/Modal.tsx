@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const duration = 300;
+
 type boxPosition = 'mid' | 'bottom';
+
+export const BOX_POSITION = {
+  MID: 'mid',
+  BOTTOM: 'bottom',
+} as const;
 
 export function useModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,7 +63,7 @@ const Overlay = styled.div<{ isFadeIn: boolean; duration: number }>`
 `;
 const Wrapper = styled.div<{ boxPosition: boxPosition }>`
   width: 100%;
-  ${({ boxPosition }) => boxPosition === 'bottom' && 'position: absolute; bottom:0px;'}
+  ${({ boxPosition }) => boxPosition === BOX_POSITION.BOTTOM && 'position: absolute; bottom:0px;'}
   display: flex;
   justify-content: center;
 `;

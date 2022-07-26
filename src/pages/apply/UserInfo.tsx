@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useForm, DeepRequired, FieldErrorsImpl } from 'react-hook-form';
 import { SETTINGS, GENDER, ADDRESS, TRANSPORTATION_SETTING } from '../../utils/input';
-import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { FormControlLabel, Radio, RadioGroup, TextField } from '@mui/material';
+import { useModal, Modal, BOX_POSITION } from '../../components/Modal';
 import TransportationField from './Transportation';
 import AgreeField from './Agree';
-import { useModal, Modal } from '../../components/Modal';
 import AddressPicker from './AddressPicker';
-import TextField from '@mui/material/TextField';
 import CompleteNotice from './CompleteNotice';
 
 interface IFormData {
@@ -51,6 +50,7 @@ function UserInfo() {
     openModal: openCompleteNoticeModal,
     closeModal: closeCompleteNoticeModal,
   } = useModal();
+
   const handleAddressSelect = (address: string) => {
     closeModal();
     setValue(ADDRESS.key, address, { shouldDirty: true });
@@ -124,13 +124,18 @@ function UserInfo() {
           제출하기
         </Button>
       </Form>
-      <Modal isOpen={isOpen} isFadeIn={isFadeIn} boxPosition={'bottom'} closeModal={closeModal}>
+      <Modal
+        isOpen={isOpen}
+        isFadeIn={isFadeIn}
+        boxPosition={BOX_POSITION.BOTTOM}
+        closeModal={closeModal}
+      >
         <AddressPicker handleAddressSelect={handleAddressSelect} closeModal={closeModal} />
       </Modal>
       <Modal
         isOpen={isCompleteNoticeOpen}
         isFadeIn={true}
-        boxPosition={'mid'}
+        boxPosition={BOX_POSITION.MID}
         closeModal={closeCompleteNoticeModal}
       >
         <CompleteNotice closeModal={closeCompleteNoticeModal} />
