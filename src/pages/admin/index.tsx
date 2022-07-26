@@ -30,6 +30,7 @@ export default function Admin() {
   const [series, setSeries] = useRecoilState<number>(seriesState);
   const [page, setPage] = useRecoilState<number>(pageState);
   const [order, setOrder] = useState<string>(ORDER_ID);
+  console.log(applicants);
   const sortApplicants = useRecoilValue(
     sortApplicantSelector({
       applicants: searchSelector({
@@ -49,6 +50,7 @@ export default function Admin() {
       }),
     }),
   );
+  console.log(applicants);
   const handleSeriesClick = (series: React.SetStateAction<number>) => {
     setSeries(series);
     setPage(1);
@@ -59,6 +61,7 @@ export default function Admin() {
   const handlePageClick = (page: React.SetStateAction<number>) => {
     setPage(page);
   };
+
   const PageList = () => {
     const pageNumber = [];
     for (let i = 1; i <= pageRange; i++) {
@@ -79,7 +82,7 @@ export default function Admin() {
       <Header>AI 학습용 교통 데이터 수집을 위한 클라우드 워커 지원 현황</Header>
       <MenuBar />
       {/* table */}
-      <br />
+      {/* <br />
       <button onClick={() => handleSeriesClick(1)}>1차 모집</button>
       <button onClick={() => handleSeriesClick(2)}>2차 모집</button>
       <br />
@@ -92,10 +95,10 @@ export default function Admin() {
       <span>
         {pageNationCandidates.map(
           (applicant) =>
-            ` ${applicant.name} ${applicant.appliedAt} ${applicant.gender} ${applicant.dateOfBirth} ${applicant.transportation} ${applicant.region.city} ${applicant.region.district} |`,
+            `이름: ${applicant.name} 지원날짜 : ${applicant.appliedAt}  성별 : ${applicant.gender}  생년월일: ${applicant.dateOfBirth} 운송수단: ${applicant.transportation}  지역:${applicant.region} |`,
         )}
       </span>
-      <div>{PageList()}</div>
+      <div>{PageList()}</div> */}
     </Wrapper>
   );
 }

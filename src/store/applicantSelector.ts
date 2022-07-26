@@ -13,3 +13,4 @@ export const applicantSelector = selectorFamily({
       return selectSeriesApplicants;
     },
 });
+// export default applicantSelector;

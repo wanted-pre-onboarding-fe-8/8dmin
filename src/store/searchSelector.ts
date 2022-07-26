@@ -5,6 +5,8 @@ import {
   convertYear,
   convertMonth,
   convertDay,
+  spaceToArray,
+  spaceDeleteToString,
 } from '../utils/helpers/convertion';
 import { MockCandidates } from './types';
 import { selectState, keywordState } from '../store';
@@ -67,9 +69,9 @@ export const searchSelector = selectorFamily({
           case SELECT_REGION: {
             const selectedRegion = applicantState.filter(
               (candidate) =>
-                candidate.region.city === keyword ||
-                candidate.region.district === keyword ||
-                candidate.region.city + candidate.region.district === keyword,
+                spaceToArray(candidate.region)[0] === keyword ||
+                spaceToArray(candidate.region)[1] === keyword ||
+                spaceDeleteToString(candidate.region) === keyword,
             );
             return selectedRegion;
           }

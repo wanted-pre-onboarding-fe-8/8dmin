@@ -10,10 +10,8 @@
       "phone": "010-1234-5678",
       "transportation": ["버스"],
       "email": "wanted1@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "강남구"
-      },
+      "region": "서울 강남구",
+
       "accepted": true
     },
     {
@@ -26,10 +24,8 @@
       "phone": "010-1234-5678",
       "transportation": ["택시", "KTX/기차", "자가용"],
       "email": "wanted2@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "서초구"
-      },
+      "region": "서울 강남구",
+
       "accepted": true
     },
     {
@@ -42,10 +38,8 @@
       "phone": "010-1234-5678",
       "transportation": ["버스", "자전거"],
       "email": "wanted3@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "노원구"
-      },
+      "region": "서울 강남구",
+
       "accepted": true
     },
     {
@@ -58,10 +52,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted4@naver.com",
-      "region": {
-        "city": "인천",
-        "district": "연수구"
-      },
+      "region": "서울 강남구",
+
       "accepted": true
     },
     {
@@ -74,10 +66,8 @@
       "phone": "010-1234-5678",
       "transportation": ["버스", "자전거", "도보"],
       "email": "wanted5@naver.com",
-      "region": {
-        "city": "인천",
-        "district": "남동구"
-      },
+      "region": "서울 노원구",
+
       "accepted": true
     },
     {
@@ -90,10 +80,8 @@
       "phone": "010-1234-5678",
       "transportation": ["KTX/기차", "자가용"],
       "email": "wanted6@naver.com",
-      "region": {
-        "city": "부천",
-        "district": "소사구"
-      },
+      "region": "서울 노원구",
+
       "accepted": true
     },
     {
@@ -106,10 +94,8 @@
       "phone": "010-1234-5678",
       "transportation": ["버스"],
       "email": "wanted7@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "광진구"
-      },
+      "region": "서울 광진구",
+
       "accepted": true
     },
     {
@@ -122,10 +108,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted8@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "동대문구"
-      },
+      "region": "서울 광진구",
+
       "accepted": true
     },
     {
@@ -138,10 +122,8 @@
       "phone": "010-1234-5678",
       "transportation": ["택시", "KTX/기차", "자가용"],
       "email": "wanted9@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "서대문구"
-      },
+      "region": "서울 광진구",
+
       "accepted": true
     },
     {
@@ -154,10 +136,8 @@
       "phone": "010-1234-5678",
       "transportation": ["도보"],
       "email": "wanted10@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "영등포구"
-      },
+      "region": "서울 광진구",
+
       "accepted": true
     },
     {
@@ -170,10 +150,8 @@
       "phone": "010-1234-5678",
       "transportation": ["버스", "자전거", "도보", "전동킥보드", "택시", "KTX/기차", "자가용"],
       "email": "wanted11@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "강남구"
-      },
+      "region": "서울 동대문구",
+
       "accepted": true
     },
     {
@@ -186,10 +164,7 @@
       "phone": "010-1234-5678",
       "transportation": ["버스", "자전거", "도보", "전동킥보드", "택시", "KTX/기차", "자가용"],
       "email": "wanted12@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "강남구"
-      },
+      "region": "서울 강남구",
       "accepted": true
     },
     {
@@ -202,10 +177,8 @@
       "phone": "010-1234-5678",
       "transportation": ["버스", "자전거", "도보", "전동킥보드", "택시"],
       "email": "wanted13@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "강남구"
-      },
+      "region": "서울 광진구",
+
       "accepted": true
     },
     {
@@ -218,10 +191,8 @@
       "phone": "010-1234-5678",
       "transportation": ["도보", "전동킥보드"],
       "email": "wanted14@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "강남구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -234,10 +205,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted16@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "서초구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -250,10 +219,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted16@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "강남구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -266,10 +233,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted15@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "강남구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -282,10 +247,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted18@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "강남구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -298,10 +261,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted19@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "강남구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -314,10 +275,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted20@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "강남구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -330,10 +289,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted15@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "강남구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -346,10 +303,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted2@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "강남구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -362,10 +317,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted23@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "강남구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -378,10 +331,8 @@
       "phone": "010-9999-9999",
       "transportation": ["자가용"],
       "email": "wanted24@google.com",
-      "region": {
-        "city": "인천",
-        "district": "연수구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -394,10 +345,8 @@
       "phone": "010-9999-9998",
       "transportation": ["자가용"],
       "email": "wanted25@google.com",
-      "region": {
-        "city": "서울",
-        "district": "강남구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -410,10 +359,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted23@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "강남구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -426,10 +373,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted27@naver.com",
-      "region": {
-        "city": "서울",
-        "district": "동대문구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -442,10 +387,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted28@gmail.com",
-      "region": {
-        "city": "인천시",
-        "district": "소사구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -458,10 +401,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted29@gmail.com",
-      "region": {
-        "city": "경기",
-        "district": "수원시"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -474,10 +415,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted30@gmail.com",
-      "region": {
-        "city": "서울",
-        "district": "동대문구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -490,10 +429,8 @@
       "phone": "010-1234-5678",
       "transportation": ["자가용"],
       "email": "wanted31@gmail.com",
-      "region": {
-        "city": "서울",
-        "district": "중랑구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     },
     {
@@ -506,10 +443,8 @@
       "phone": "010-1234-5678",
       "transportation": ["택시"],
       "email": "wanted32@gmail.com",
-      "region": {
-        "city": "서울",
-        "district": "노원구"
-      },
+      "region": "인천 연수구",
+
       "accepted": true
     }
   ]

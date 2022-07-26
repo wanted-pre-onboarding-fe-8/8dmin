@@ -12,7 +12,7 @@ export const ORDER_CONSTANTS = {
   ORDER_NAME: 'name',
   ORDER_APPLIED_AT: 'appliedAt',
   ORDER_GENDER: 'gender',
-  ORDER_BIRTH: 'birth',
+  ORDER_BIRTH: 'dateOfBirth',
   ORDER_EMAIL: 'email',
   ORDER_REGION: 'region',
 } as const;
