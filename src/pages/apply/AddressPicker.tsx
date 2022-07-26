@@ -97,7 +97,7 @@ const Wrapper = styled.div`
   padding: 10px;
 
   @media (max-width: 480px) {
-    width: 100%;
+    width: 100vw;
   }
 `;
 
