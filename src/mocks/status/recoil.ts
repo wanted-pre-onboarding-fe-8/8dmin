@@ -1,8 +1,8 @@
 import { atom } from 'recoil';
 
-const selectedTabState = atom({
-  key: 'selectedTabState',
+const seriesState = atom({
+  key: 'seriesState',
   default: 0,
 });
 
-export { selectedTabState };
+export { seriesState };
