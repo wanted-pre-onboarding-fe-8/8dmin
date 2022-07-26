@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
-export const allCandidateState = atom({
-  key: 'allCandidateState',
+export const allApplicantState = atom({
+  key: 'allapplicantState',
   default: [],
 });
 
@@ -17,5 +17,9 @@ export const keywordState = atom({
 
 export const selectState = atom({
   key: 'selectState',
-  default: '',
+  default: 'dateOfApply',
+});
+export const pageState = atom({
+  key: 'pageState',
+  default: 1,
 });

@@ -12,35 +12,35 @@ const {
   ORDER_REGION,
 } = ORDER_CONSTANTS;
 
-export const sortCandidateSelector = selectorFamily({
-  key: 'sortCandidateSelector',
+export const sortApplicantSelector = selectorFamily({
+  key: 'sortApplicantSelector',
   get:
-    ({ candidates, order }: { candidates: RecoilValue<MockCandidates>; order: string }) =>
+    ({ applicants, order }: { applicants: RecoilValue<MockCandidates>; order: string }) =>
     ({ get }) => {
-      const selectorCandidate: MockCandidates = [...get(candidates)];
+      const selectorApplicants: MockCandidates = [...get(applicants)];
       switch (order) {
         case ORDER_ID: {
-          const sortedId = selectorCandidate.sort((a, b) => a[order] - b[order]);
+          const sortedId = selectorApplicants.sort((a, b) => a[order] - b[order]);
           return sortedId;
         }
         case ORDER_NAME: {
-          const sortedName = selectorCandidate.sort(nameAscending);
+          const sortedName = selectorApplicants.sort(nameAscending);
           return sortedName;
         }
         case ORDER_APPLIED_AT: {
-          const sortedAppliedAt = selectorCandidate.sort(dateAscending);
+          const sortedAppliedAt = selectorApplicants.sort(dateAscending);
           return sortedAppliedAt;
         }
         case ORDER_GENDER: {
-          const sortedGender = selectorCandidate.sort(genderAscending);
+          const sortedGender = selectorApplicants.sort(genderAscending);
           return sortedGender;
         }
         case ORDER_BIRTH: {
-          const sortedBirth = selectorCandidate.sort(birthAscending);
+          const sortedBirth = selectorApplicants.sort(birthAscending);
           return sortedBirth;
         }
         default: {
-          return selectorCandidate;
+          return selectorApplicants;
         }
       }
     },
@@ -57,7 +57,6 @@ function dateAscending(a: { appliedAt: Date | string }, b: { appliedAt: Date | s
 function genderAscending(a: { gender: string }, b: { gender: string }) {
   return a.gender < b.gender ? -1 : a.gender == b.gender ? 0 : 1;
 }
-
 function birthAscending(a: { birth: Date | string }, b: { birth: Date | string }) {
   const first: any = new Date(a.birth);
   const second: any = new Date(b.birth);
