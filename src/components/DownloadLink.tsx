@@ -11,7 +11,7 @@ import { FILE_NAME, TABLE_HEAD_LABELS } from '../utils/constants/table';
 //     birth: string;
 //     phone: string;
 //     email: string;
-//     transport: string | string[];
+//     transport: string[];
 //     residence: string;
 //     status: boolean;
 //   }[];
@@ -28,7 +28,7 @@ function DownloadLink() {
       birth: '2222-11-11',
       phone: '010-1234-5678',
       email: 'cndusqls98@naver.com',
-      transport: '버스',
+      transport: ['버스'],
       residence: '경기도',
       status: true,
     },
@@ -40,7 +40,7 @@ function DownloadLink() {
       birth: '2222-11-11',
       phone: '010-1234-5678',
       email: 'cndusqls98@naver.com',
-      transport: '버스',
+      transport: ['버스'],
       residence: '경기도',
       status: true,
     },
@@ -52,7 +52,7 @@ function DownloadLink() {
       birth: '2222-11-11',
       phone: '010-1234-5678',
       email: 'cndusqls98@naver.com',
-      transport: '버스',
+      transport: ['버스', '택시', '자동차'],
       residence: '경기도',
       status: true,
     },
@@ -66,7 +66,9 @@ function DownloadLink() {
     let csvString = TABLE_HEAD_LABELS.join(',') + '\n';
 
     data.forEach((value) => {
-      csvString += `${value.num},${value.date},${value.name},${value.sex},${value.birth},${value.phone},${value.email},${value.transport},${value.residence},${value.status}\r\n`;
+      csvString += `${value.num},${value.date},${value.name},${value.sex},${value.birth},${
+        value.phone
+      },${value.email},${value.transport.join(' ')},${value.residence},${value.status}\r\n`;
 
       const blob = new Blob(['\uFEFF' + csvString], { type: 'text/csv;charset=utf-8' });
       const url = URL.createObjectURL(blob);
