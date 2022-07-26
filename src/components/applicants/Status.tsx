@@ -2,17 +2,22 @@ import React from 'react';
 import Tab from './Tab';
 import Table from './Table';
 import styled from 'styled-components';
-import { MOCK_SERIES_COUNT, MOCK_APPLICANTS } from '../../mocks/status/table';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  totalSeriesCountState,
+  selectedSeriesState,
+  applicantsBySeries,
+} from '../../mocks/status/recoil';
 
 function Status() {
-  const MOCK_SELECTED_TAB = 1;
-  const filteredApplicants = MOCK_APPLICANTS.filter(
-    (applicant) => applicant.series === MOCK_SELECTED_TAB,
-  );
+  const [totalSeriesCount] = useRecoilState(totalSeriesCountState);
+  const [selectedSeries] = useRecoilState(selectedSeriesState);
+  const applicants = useRecoilValue(applicantsBySeries(selectedSeries));
+
   return (
     <Container>
-      <Tab length={MOCK_SERIES_COUNT} />
-      <Table applicants={filteredApplicants} />
+      <Tab length={totalSeriesCount} />
+      <Table applicants={applicants} />
     </Container>
   );
 }

@@ -3,7 +3,7 @@ import { MOCK_APPLICANTS } from './table';
 
 const totalSeriesCountState = atom({
   key: 'totalSeriesCountState',
-  default: 100,
+  default: 10,
 });
 
 const selectedSeriesState = atom({
