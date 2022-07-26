@@ -1,21 +1,7 @@
 import React from 'react';
 import MuiTableBody from '@mui/material/TableBody';
 import TableRow from './TableRow';
-
-interface MockApplicant {
-  id: number;
-  series: number;
-  appliedAt: string;
-  name: string;
-  sex: string;
-  dateOfBirth: string;
-  phone: string;
-  email: string;
-  mobility: string;
-  region: string;
-  accepted: boolean;
-}
-
+import { MockApplicant } from '../../mocks/status/type';
 interface TableBodyProps {
   applicants: MockApplicant[];
 }

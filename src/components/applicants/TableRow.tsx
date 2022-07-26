@@ -2,21 +2,7 @@ import React from 'react';
 import MuiTableRow from '@mui/material/TableRow';
 import MuiTableCell from '@mui/material/TableCell';
 import MuiCheckbox from '@mui/material/Checkbox';
-
-interface MockApplicant {
-  id: number;
-  series: number;
-  appliedAt: string;
-  name: string;
-  sex: string;
-  dateOfBirth: string;
-  phone: string;
-  email: string;
-  mobility: string;
-  region: string;
-  accepted: boolean;
-}
-
+import { MockApplicant } from '../../mocks/status/type';
 interface TableRowProps {
   applicant: MockApplicant;
 }

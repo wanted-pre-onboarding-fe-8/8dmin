@@ -4,20 +4,7 @@ import MuiTableContainer from '@mui/material/TableContainer';
 import MuiPaper from '@mui/material/Paper';
 import TableHead from './TableHead';
 import TableBody from './TableBody';
-
-interface MockApplicant {
-  id: number;
-  series: number;
-  appliedAt: string;
-  name: string;
-  sex: string;
-  dateOfBirth: string;
-  phone: string;
-  email: string;
-  mobility: string;
-  region: string;
-  accepted: boolean;
-}
+import { MockApplicant } from '../../mocks/status/type';
 interface TableProps {
   applicants: MockApplicant[];
 }
