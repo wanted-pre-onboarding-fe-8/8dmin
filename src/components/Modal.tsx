@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const duration = 300;
+type boxPosition = 'mid' | 'bottom';
 
 export function useModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,14 +25,17 @@ interface IModal {
   isFadeIn: boolean;
   closeModal: () => void;
   children: JSX.Element;
+  boxPosition: boxPosition;
 }
 
-export function Modal({ isOpen, isFadeIn, closeModal, children }: IModal) {
+export function Modal({ isOpen, isFadeIn, closeModal, children, boxPosition }: IModal) {
   return (
     <>
       {isOpen && (
         <Overlay isFadeIn={isFadeIn} duration={duration} onClick={closeModal}>
-          <Wrapper onClick={(event) => event.stopPropagation()}>{children}</Wrapper>
+          <Wrapper boxPosition={boxPosition} onClick={(event) => event.stopPropagation()}>
+            {children}
+          </Wrapper>
         </Overlay>
       )}
     </>
@@ -51,12 +55,11 @@ const Overlay = styled.div<{ isFadeIn: boolean; duration: number }>`
   animation: ${({ isFadeIn }) => (isFadeIn ? fadeIn : fadeOut)};
   animation-duration: ${({ duration }) => `${duration + 100}ms`};
 `;
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ boxPosition: boxPosition }>`
   width: 100%;
-  position: absolute;
+  ${({ boxPosition }) => boxPosition === 'bottom' && 'position: absolute; bottom:0px;'}
   display: flex;
   justify-content: center;
-  bottom: 0px;
 `;
 
 const fadeIn = keyframes`
