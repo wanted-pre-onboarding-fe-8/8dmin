@@ -1,10 +1,9 @@
 import React from 'react';
 import MuiTable from '@mui/material/Table';
-import MuiTableBody from '@mui/material/TableBody';
 import MuiTableContainer from '@mui/material/TableContainer';
 import MuiPaper from '@mui/material/Paper';
-import TableRow from './TableRow';
 import TableHead from './TableHead';
+import TableBody from './TableBody';
 
 interface MockApplicant {
   id: number;
@@ -19,7 +18,6 @@ interface MockApplicant {
   region: string;
   accepted: boolean;
 }
-
 interface TableProps {
   applicants: MockApplicant[];
 }
@@ -29,11 +27,7 @@ function Table({ applicants }: TableProps) {
     <MuiTableContainer component={MuiPaper}>
       <MuiTable sx={{ minWidth: 650 }} aria-label='applicants status table'>
         <TableHead />
-        <MuiTableBody>
-          {applicants.map((applicant) => {
-            return <TableRow key={applicant.id} applicant={applicant} />;
-          })}
-        </MuiTableBody>
+        <TableBody applicants={applicants} />
       </MuiTable>
     </MuiTableContainer>
   );
