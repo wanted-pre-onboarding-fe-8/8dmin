@@ -13,11 +13,22 @@ interface IPicker {
 export default function Picker(props: IPicker) {
   const { title, items, currentIndex, itemHeight, itemCount, itemClickHandler } = props;
 
+  const mouseWheelHandler = (event: React.WheelEvent) => {
+    const { deltaY } = event;
+    if (deltaY < 0) {
+      if (currentIndex === 0) return;
+      itemClickHandler(currentIndex - 1);
+    } else if (deltaY > 0) {
+      if (currentIndex === items.length - 1) return;
+      itemClickHandler(currentIndex + 1);
+    }
+  };
+
   return (
     <Box>
       <Title>{title}</Title>
       <ItemBox height={itemHeight * itemCount}>
-        <TransformBox index={currentIndex} scrollY={itemHeight}>
+        <TransformBox index={currentIndex} scrollY={itemHeight} onWheel={mouseWheelHandler}>
           {items.map((item, index) => (
             <Item key={item} height={itemHeight} onClick={() => itemClickHandler(index)}>
               <StyledItem isSelected={index === currentIndex}>{item}</StyledItem>
