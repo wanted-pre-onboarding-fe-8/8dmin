@@ -7,12 +7,14 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import { SELECT_OPTIONS_CONTANST, DATE_REGEX } from '../../utils/constants/application';
+import { useRecoilState } from 'recoil';
+import { keywordState, pageState, selectState } from '../../store';
 
 export default function Search() {
-  const [select, setSelect] = React.useState('dateOfApply');
+  const [select, setSelect] = useRecoilState(selectState);
+  const [keyword, setKeyword] = useRecoilState(keywordState);
+  const [page, setPage] = useRecoilState(pageState);
   const [input, setInput] = React.useState('');
-  const [keyword, setKeyword] = React.useState('');
-
   const handleChange = (event: SelectChangeEvent) => {
     setInput('');
     setSelect(event.target.value);
@@ -21,8 +23,8 @@ export default function Search() {
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     setKeyword(input);
+    setPage(1);
   };
-
   const onChange = (event: SelectChangeEvent) => {
     const { value, name } = event.target;
     if (name === 'dateOfApply' || name === 'dateOfBirth') {
@@ -32,6 +34,9 @@ export default function Search() {
       setInput(event.target.value);
     }
     setInput(value);
+    if (event.target.value === '') {
+      setKeyword(event.target.value);
+    }
   };
 
   const InputField: any = {

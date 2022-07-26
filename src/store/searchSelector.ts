@@ -1,8 +1,14 @@
 import { RecoilValue, selectorFamily } from 'recoil';
+import {
+  dateToString,
+  dateToArray,
+  convertYear,
+  convertMonth,
+  convertDay,
+} from '../utils/helpers/convertion';
 import { MockCandidates } from './types';
 import { selectState, keywordState } from '../store';
 import { SELECT_CONSTANTS } from '../utils/constants/data';
-
 const {
   SELECT_DATE,
   SELECT_NAME,
@@ -11,53 +17,66 @@ const {
   SELECT_TRANSPORTAION,
   SELECT_REGION,
 } = SELECT_CONSTANTS;
-
+const DESTIGNATION = '자';
 export const searchSelector = selectorFamily({
   key: 'searchSelector',
   get:
-    ({ candidates }: { candidates: RecoilValue<MockCandidates> }) =>
+    ({ applicants }: { applicants: RecoilValue<MockCandidates> }) =>
     ({ get }) => {
-      const candidateState = get(candidates);
+      const applicantState = get(applicants);
       const select = get(selectState);
       const keyword = get(keywordState);
       if (keyword !== '') {
         switch (select) {
           case SELECT_DATE: {
-            const selectedDate = candidateState.filter((candidate) => candidate.name === keyword);
+            const selectedDate = applicantState.filter(
+              (applicant) =>
+                convertYear(applicant.appliedAt) === keyword ||
+                convertYear(applicant.appliedAt) + convertMonth(applicant.appliedAt) === keyword ||
+                dateToString(applicant.appliedAt) === keyword,
+            );
             return selectedDate;
           }
           case SELECT_NAME: {
-            const selectedName = candidateState.filter((candidate) => candidate.name === keyword);
+            const selectedName = applicantState.filter((candidate) => candidate.name === keyword);
             return selectedName;
           }
           case SELECT_GENDER: {
-            const selectedGender = candidateState.filter(
-              (candidate) => candidate.gender === keyword,
+            const selectedGender = applicantState.filter(
+              (candidate) =>
+                candidate.gender === keyword || candidate.gender + DESTIGNATION === keyword,
             );
             return selectedGender;
           }
           case SELECT_BIRTH: {
-            const selectedBirth = candidateState.filter((candidate) => candidate.birth === keyword);
+            const selectedBirth = applicantState.filter(
+              (candidate) =>
+                convertYear(candidate.birth) === keyword ||
+                convertYear(candidate.birth) + convertMonth(candidate.birth) === keyword ||
+                dateToString(candidate.birth) === keyword,
+            );
             return selectedBirth;
           }
           case SELECT_TRANSPORTAION: {
-            const selectedTransportaion = candidateState.filter(
-              (candidate) => candidate.transportation === keyword,
+            const selectedTransportaion = applicantState.filter((candidate) =>
+              candidate.transportation.includes(keyword),
             );
             return selectedTransportaion;
           }
           case SELECT_REGION: {
-            const selectedRegion = candidateState.filter(
+            const selectedRegion = applicantState.filter(
               (candidate) =>
-                candidate.region.city === keyword || candidate.region.district === keyword,
+                candidate.region.city === keyword ||
+                candidate.region.district === keyword ||
+                candidate.region.city + candidate.region.district === keyword,
             );
             return selectedRegion;
           }
           default: {
-            return candidateState;
+            return applicantState;
           }
         }
       }
-      return candidateState;
+      return applicantState;
     },
 });
