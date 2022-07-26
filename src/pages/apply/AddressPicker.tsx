@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { REGION, typeMainRegion } from '../../utils/region';
 import styled from 'styled-components';
+import CloseIcon from '@mui/icons-material/Close';
 import Picker from './Picker';
 
-const ITEM_HEIGHT = 70;
+const ITEM_HEIGHT = 60;
 const ITEM_COUNT = 3;
 
 interface IAddressPicker {
   handleAddressSelect: (address: string) => void;
+  closeModal: () => void;
 }
 
-export default function AddressPicker({ handleAddressSelect }: IAddressPicker) {
+export default function AddressPicker({ handleAddressSelect, closeModal }: IAddressPicker) {
   const [mainIndex, setMainIndex] = useState(1);
   const [subIndex, setSubIndex] = useState(1);
 
@@ -45,7 +47,8 @@ export default function AddressPicker({ handleAddressSelect }: IAddressPicker) {
 
   return (
     <Wrapper>
-      <WrapperTitle>거주지역 선택</WrapperTitle>
+      <CloseButton sx={{ fontSize: 40 }} onClick={() => closeModal()} />
+      <Title>거주지역 선택</Title>
       <Box>
         <Picker
           title={'시/도'}
@@ -88,18 +91,31 @@ function indexToString(mainIndex: number, subIndex: number) {
 }
 
 const Wrapper = styled.div`
+  position: relative;
   background-color: white;
-  width: 400px;
+  width: 350px;
   padding: 10px;
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
+`;
+
+const CloseButton = styled(CloseIcon)`
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  cursor: pointer;
 `;
 
 const Title = styled.p`
   font-weight: 600;
   text-align: center;
-`;
-const WrapperTitle = styled(Title)`
   font-size: 18px;
-  padding: 15px;
+  padding-top: 5px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 10px;
 `;
 
 const Box = styled.div`
@@ -109,5 +125,12 @@ const Box = styled.div`
 
 const Button = styled.button`
   width: 100%;
-  padding: 30px;
+  margin-top: 5px;
+  padding: 15px;
+  background-color: #4b4b4b;
+  border-radius: 15px;
+  border: 0px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
 `;
