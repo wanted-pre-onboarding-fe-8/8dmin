@@ -11,17 +11,18 @@ interface TabProps {
 
 function Tab({ length }: TabProps) {
   const tabList = createTabList(length);
+  const [selectedSeries, setSelectedSeries] = useRecoilState(selectedSeriesState);
+  const tabIndex = selectedSeries - 1;
 
-  const [selectedTabIndex, setSelectedTabIndex] = useRecoilState(selectedSeriesState);
-
-  const handleChange = (event: React.SyntheticEvent, newTabIndex: number) => {
-    setSelectedTabIndex(newTabIndex);
+  const handleChange = (event: React.SyntheticEvent, tabIndex: number) => {
+    const series = tabIndex + 1;
+    setSelectedSeries(series);
   };
 
   return (
     <MuiTabs
       component={MuiPaper}
-      value={selectedTabIndex}
+      value={tabIndex}
       onChange={handleChange}
       variant='scrollable'
       scrollButtons='auto'
