@@ -91,7 +91,8 @@ export default function Admin() {
       <br />
       <span>
         {pageNationCandidates.map(
-          (candidate) => `${candidate.name} ${candidate.birth} ${candidate.transportation} | `,
+          (applicant) =>
+            ` ${applicant.name} ${applicant.appliedAt} ${applicant.gender} ${applicant.dateOfBirth} ${applicant.transportation} ${applicant.region.city} ${applicant.region.district} |`,
         )}
       </span>
       <div>{PageList()}</div>

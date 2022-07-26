@@ -57,8 +57,8 @@ function dateAscending(a: { appliedAt: Date | string }, b: { appliedAt: Date | s
 function genderAscending(a: { gender: string }, b: { gender: string }) {
   return a.gender < b.gender ? -1 : a.gender == b.gender ? 0 : 1;
 }
-function birthAscending(a: { birth: Date | string }, b: { birth: Date | string }) {
-  const first: any = new Date(a.birth);
-  const second: any = new Date(b.birth);
+function birthAscending(a: { dateOfBirth: Date | string }, b: { dateOfBirth: Date | string }) {
+  const first: any = new Date(a.dateOfBirth);
+  const second: any = new Date(b.dateOfBirth);
   return first - second;
 }
