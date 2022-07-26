@@ -17,3 +17,11 @@ export function convertDay(date: string) {
   const newDate = date.split('-');
   return newDate[2];
 }
+export function spaceToArray(string: string) {
+  const newArr = string.split(' ');
+  return newArr;
+}
+export function spaceDeleteToString(string: string) {
+  const newString = string.replace(' ', '');
+  return newString;
+}
