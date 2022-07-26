@@ -8,7 +8,7 @@ const totalSeriesCountState = atom({
 
 const selectedSeriesState = atom({
   key: 'selectedSeriesState',
-  default: 0,
+  default: 1,
 });
 
 const applicantsState = atom({
