@@ -20,14 +20,29 @@ interface IFormData {
   transportation: string[];
 }
 
+const defaultValues = {
+  name: '',
+  gender: GENDER.FEMALE,
+  dateOfBirth: '',
+  address: '',
+  phone: '',
+  email: '',
+  transportation: [],
+};
+
+const NUMBER_OF_FIELDS = Object.keys(defaultValues).length;
+
 function UserInfo() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, dirtyFields },
     setValue,
     clearErrors,
-  } = useForm<IFormData>();
+  } = useForm<IFormData>({
+    defaultValues,
+  });
+  const [isAllAgreed, setIsAllAgreed] = useState<boolean>(false);
 
   const handleValid = (data: IFormData) => {
     console.log(data);
@@ -36,8 +51,18 @@ function UserInfo() {
   const { isOpen, isFadeIn, openModal, closeModal } = useModal();
   const handleAddressSelect = (address: string) => {
     closeModal();
-    setValue(ADDRESS.key, address);
+    setValue(ADDRESS.key, address, { shouldDirty: true });
     clearErrors(ADDRESS.key);
+  };
+
+  const checkAllInputEntered = (target: Record<string, boolean | boolean[]>) => {
+    const targetObjectLength = Object.keys(target).length;
+    if (targetObjectLength >= NUMBER_OF_FIELDS - 1) return true;
+    return false;
+  };
+
+  const checkAllAgreed = (agree: boolean) => {
+    setIsAllAgreed(agree);
   };
 
   return (
@@ -84,9 +109,13 @@ function UserInfo() {
           />
         </InputWrapper>
         <InputWrapper>
-          <AgreeField />
+          <AgreeField checkAllAgreed={checkAllAgreed} />
         </InputWrapper>
-        <Button isValid={true} type='submit'>
+        <Button
+          type='submit'
+          isValid={true}
+          disabled={!checkAllInputEntered(dirtyFields) || !isAllAgreed}
+        >
           제출하기
         </Button>
       </Form>
