@@ -86,7 +86,9 @@ function UserInfo() {
         <InputWrapper>
           <AgreeField />
         </InputWrapper>
-        <Button type='submit'>제출하기</Button>
+        <Button isValid={true} type='submit'>
+          제출하기
+        </Button>
       </Form>
       <Modal isOpen={isOpen} isFadeIn={isFadeIn} closeModal={closeModal}>
         <AddressPicker handleAddressSelect={handleAddressSelect} closeModal={closeModal} />
