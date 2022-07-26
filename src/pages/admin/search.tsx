@@ -10,7 +10,10 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { SELECT_OPTIONS_CONTANST } from '../../utils/constants/application';
 import { DATE_VALIDATION } from '../../utils/input/validation';
+import { useRecoilState } from 'recoil';
+import { keywordState, pageState, selectState } from '../../store';
 
+<<<<<<< HEAD
 interface ISearchProps {
   onActiveChange: () => void;
   active: boolean;
@@ -18,8 +21,13 @@ interface ISearchProps {
 
 export default function Search({ onActiveChange, active }: ISearchProps) {
   const [select, setSelect] = React.useState('dateOfApply');
+=======
+export default function Search() {
+  const [select, setSelect] = useRecoilState(selectState);
+  const [keyword, setKeyword] = useRecoilState(keywordState);
+  const [page, setPage] = useRecoilState(pageState);
+>>>>>>> 324f863 (feat: keyword와 select를 recoil과 연결하여 검색기능 구현)
   const [input, setInput] = React.useState('');
-  const [keyword, setKeyword] = React.useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
     setInput('');
@@ -29,6 +37,7 @@ export default function Search({ onActiveChange, active }: ISearchProps) {
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     setKeyword(input);
+    setPage(1);
   };
 
   const onChange = (event: SelectChangeEvent) => {
@@ -40,6 +49,9 @@ export default function Search({ onActiveChange, active }: ISearchProps) {
       setInput(event.target.value);
     }
     setInput(value);
+    if (event.target.value === '') {
+      setKeyword(event.target.value);
+    }
   };
 
   const InputField: any = {
