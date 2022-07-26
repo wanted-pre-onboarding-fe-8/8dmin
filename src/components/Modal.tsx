@@ -46,31 +46,32 @@ const Overlay = styled.div<{ isFadeIn: boolean; duration: number }>`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 999;
 
   animation: ${({ isFadeIn }) => (isFadeIn ? fadeIn : fadeOut)};
   animation-duration: ${({ duration }) => `${duration + 100}ms`};
 `;
 const Wrapper = styled.div`
+  width: 100%;
   position: absolute;
-  top: 100px;
+  display: flex;
+  justify-content: center;
+  bottom: 0px;
 `;
 
 const fadeIn = keyframes`
   0% {
-    opacity: 0;
+    transform: translateY(100%);
   }
   100% {
-    opacity: 1;
+    transform: translateY(0%);
   }
 `;
 const fadeOut = keyframes`
   0% {
-    opacity: 1;
+    transform: translateY(0%);
   }
   100% {
-    opacity: 0;
+    transform: translateY(100%);
   }
 `;

@@ -45,7 +45,7 @@ function UserInfo() {
           return (
             <InputWrapper key={key}>
               <InputTitle>{title}</InputTitle>
-              <TextField
+              <StyledTextField
                 {...register(key, option)}
                 autoComplete='off'
                 id='standard-error-helper-text'
@@ -74,10 +74,10 @@ function UserInfo() {
             />
           </RadioWrapper>
         </InputWrapper>
-        <Button>제출</Button>
+        <Button isValid={true}>지원하기</Button>
       </Form>
       <Modal isOpen={isOpen} isFadeIn={isFadeIn} closeModal={closeModal}>
-        <AddressPicker handleAddressSelect={handleAddressSelect} />
+        <AddressPicker handleAddressSelect={handleAddressSelect} closeModal={closeModal} />
       </Modal>
     </>
   );
@@ -97,11 +97,9 @@ function getErrorMessage(
 }
 
 const Form = styled.form`
-  width: 500px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 200px;
-  margin-left: 300px;
 
   > :nth-child(1) {
     order: 1;
@@ -130,12 +128,26 @@ const InputWrapper = styled.div``;
 
 const InputTitle = styled.p`
   font-weight: 600;
+  margin-top: 15px;
+  margin-bottom: 10px;
+`;
+
+const StyledTextField = styled(TextField)`
+  width: 100%;
 `;
 
 const RadioWrapper = styled(RadioGroup)`
   display: flex;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ isValid: boolean }>`
   margin-top: 30px;
+  width: 100%;
+  padding: 15px;
+  background-color: ${({ isValid }) => (isValid ? '#4b4b4b' : 'lightgray')};
+  border-radius: 15px;
+  border: 0px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
 `;
