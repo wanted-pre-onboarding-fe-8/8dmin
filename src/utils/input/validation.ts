@@ -8,4 +8,4 @@ export const PHONE_VALIDATION = /^01([0|1|6|7|8|9])([0-9]{4})([0-9]{4})$/;
 export const EMAIL_VALIDATION =
   /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.com$/i;
 
-export const DATE_VALIDATION = /^[0-9\b]{0,8}$/;
+export const DATE_VALIDATION = /^[0-9]{0,8}$/;
