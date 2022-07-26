@@ -80,12 +80,19 @@ export const TRANSPORTATION = {
   BUS: '버스',
   SUBWAY: '지하철',
   TAXI: '택시',
-  TRAIL: 'KTX/기차',
+  TRAIN: 'KTX/기차',
   WALKING: '도보',
   BYCYCLE: '자전거',
   CAR: '자가용',
   ELECTRIC_KICK_SCOOOTER: '전동 킥보드',
 } as const;
+
+export const TRANSPORTATION_SETTING = {
+  KEY: 'transportation',
+  TITLE: '주로 이용하는 교통수단',
+  SUBTITLE: '주로 이용하는 교통수단을 모두 선택해주세요',
+  TRANSPORTATION,
+};
 
 export const POLICY = {
   PRIVACY: 'privacy',

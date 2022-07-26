@@ -1,41 +1,77 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useForm, DeepRequired, FieldErrorsImpl } from 'react-hook-form';
-import { SETTINGS, GENDER, ADDRESS } from '../../utils/input';
-import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
-import { useModal, Modal } from '../../components/Modal';
+import { SETTINGS, GENDER, ADDRESS, TRANSPORTATION_SETTING } from '../../utils/input';
+import { FormControlLabel, Radio, RadioGroup, TextField } from '@mui/material';
+import { useModal, Modal, BOX_POSITION } from '../../components/Modal';
+import TransportationField from './Transportation';
+import AgreeField from './Agree';
 import AddressPicker from './AddressPicker';
-import TextField from '@mui/material/TextField';
+import CompleteNotice from './CompleteNotice';
 
 interface IFormData {
-  [key: string]: string;
+  [key: string]: string | string[];
   name: string;
   gender: typeof GENDER.FEMALE | typeof GENDER.MALE;
   dateOfBirth: string;
   address: string;
   phone: string;
   email: string;
+  transportation: string[];
 }
+
+const defaultValues = {
+  name: '',
+  gender: GENDER.FEMALE,
+  dateOfBirth: '',
+  address: '',
+  phone: '',
+  email: '',
+  transportation: [],
+};
+
+const NUMBER_OF_FIELDS = Object.keys(defaultValues).length;
 
 function UserInfo() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, dirtyFields },
     setValue,
     clearErrors,
-  } = useForm<IFormData>();
+  } = useForm<IFormData>({
+    defaultValues,
+  });
+  const [isAllAgreed, setIsAllAgreed] = useState<boolean>(false);
+
+  const { isOpen, isFadeIn, openModal, closeModal } = useModal();
+  const {
+    isOpen: isCompleteNoticeOpen,
+    openModal: openCompleteNoticeModal,
+    closeModal: closeCompleteNoticeModal,
+  } = useModal();
+
+  const handleAddressSelect = (address: string) => {
+    closeModal();
+    setValue(ADDRESS.key, address, { shouldDirty: true });
+    clearErrors(ADDRESS.key);
+  };
+
+  const checkAllInputEntered = (target: Record<string, boolean | boolean[]>) => {
+    const targetObjectLength = Object.keys(target).length;
+    if (targetObjectLength >= NUMBER_OF_FIELDS - 1) return true;
+    return false;
+  };
+
+  const checkAllAgreed = (agree: boolean) => {
+    setIsAllAgreed(agree);
+  };
+
+  const isValid = checkAllInputEntered(dirtyFields) && isAllAgreed;
 
   const handleValid = (data: IFormData) => {
     console.log(data);
-  };
-
-  const { isOpen, isFadeIn, openModal, closeModal } = useModal();
-  const handleAddressSelect = (address: string) => {
-    closeModal();
-
-    setValue(ADDRESS.key, address);
-    clearErrors(ADDRESS.key);
+    openCompleteNoticeModal();
   };
 
   return (
@@ -74,10 +110,35 @@ function UserInfo() {
             />
           </RadioWrapper>
         </InputWrapper>
-        <Button isValid={true}>지원하기</Button>
+        <InputWrapper>
+          <InputTitle>{TRANSPORTATION_SETTING.TITLE}</InputTitle>
+          <InputSubTitle>{TRANSPORTATION_SETTING.SUBTITLE}</InputSubTitle>
+          <TransportationField
+            register={register(TRANSPORTATION_SETTING.KEY, { validate: (val) => !!val.length })}
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <AgreeField checkAllAgreed={checkAllAgreed} />
+        </InputWrapper>
+        <Button type='submit' isValid={isValid} disabled={!isValid}>
+          제출하기
+        </Button>
       </Form>
-      <Modal isOpen={isOpen} isFadeIn={isFadeIn} closeModal={closeModal}>
+      <Modal
+        isOpen={isOpen}
+        isFadeIn={isFadeIn}
+        boxPosition={BOX_POSITION.BOTTOM}
+        closeModal={closeModal}
+      >
         <AddressPicker handleAddressSelect={handleAddressSelect} closeModal={closeModal} />
+      </Modal>
+      <Modal
+        isOpen={isCompleteNoticeOpen}
+        isFadeIn={true}
+        boxPosition={BOX_POSITION.MID}
+        closeModal={closeCompleteNoticeModal}
+      >
+        <CompleteNotice closeModal={closeCompleteNoticeModal} />
       </Modal>
     </>
   );
@@ -134,6 +195,10 @@ const InputTitle = styled.p`
 
 const StyledTextField = styled(TextField)`
   width: 100%;
+`;
+
+const InputSubTitle = styled.p`
+  font-weight: 300;
 `;
 
 const RadioWrapper = styled(RadioGroup)`
