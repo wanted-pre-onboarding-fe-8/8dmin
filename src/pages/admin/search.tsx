@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -6,7 +6,8 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { SELECT_OPTIONS_CONTANST, DATE_REGEX } from '../../utils/constants/application';
+import { SELECT_OPTIONS_CONTANST } from '../../utils/constants/application';
+import { DATE_VALIDATION } from '../../utils/input/validation';
 
 export default function Search() {
   const [select, setSelect] = React.useState('dateOfApply');
@@ -26,7 +27,7 @@ export default function Search() {
   const onChange = (event: SelectChangeEvent) => {
     const { value, name } = event.target;
     if (name === 'dateOfApply' || name === 'dateOfBirth') {
-      if (!DATE_REGEX.test(event.target.value)) {
+      if (!DATE_VALIDATION.test(event.target.value)) {
         return;
       }
       setInput(event.target.value);
@@ -67,7 +68,6 @@ export default function Search() {
       <Input
         name='transport'
         type='string'
-        style={{ width: '350px' }}
         onChange={onChange}
         value={input}
         placeholder='버스, 지하철, 택시, KTX/기차, 도보, 자전거, 전동 킥보드, 자가용'
@@ -124,7 +124,7 @@ export default function Search() {
 }
 
 const InputDiv = styled.div`
-  width: 100%;
+  width: 360px;
   margin: 1p;
   padding: 4px 10px;
 `;

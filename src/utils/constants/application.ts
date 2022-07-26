@@ -7,4 +7,4 @@ export const SELECT_OPTIONS_CONTANST = [
   { key: 'address', value: '거주지' },
 ];
 
-export const DATE_REGEX = /^[0-9\b]{0,8}$/;
+
