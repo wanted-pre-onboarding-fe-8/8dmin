@@ -1,8 +1,10 @@
 import React from 'react';
+import { useRecoilState } from 'recoil';
 import MuiTabs from '@mui/material/Tabs';
 import MuiTab from '@mui/material/Tab';
 import MuiPaper from '@mui/material/Paper';
 import { styled } from '@mui/system';
+import { seriesState } from '../../mocks/status/recoil';
 interface TabProps {
   length: number;
 }
@@ -10,16 +12,16 @@ interface TabProps {
 function Tab({ length }: TabProps) {
   const tabList = createTabList(length);
 
-  const [tabIndex, setTabIndex] = React.useState(0);
+  const [selectedTabIndex, setSelectedTabIndex] = useRecoilState(seriesState);
 
   const handleChange = (event: React.SyntheticEvent, newTabIndex: number) => {
-    setTabIndex(newTabIndex);
+    setSelectedTabIndex(newTabIndex);
   };
 
   return (
     <MuiTabs
       component={MuiPaper}
-      value={tabIndex}
+      value={selectedTabIndex}
       onChange={handleChange}
       variant='scrollable'
       scrollButtons='auto'
