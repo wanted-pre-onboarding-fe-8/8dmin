@@ -1,30 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useForm, DeepRequired, FieldErrorsImpl } from 'react-hook-form';
-import { SETTINGS, GENDER, ADDRESS } from '../../utils/input';
+import { SETTINGS, GENDER, ADDRESS, TRANSPORTATION_SETTING } from '../../utils/input';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import TransportationField from './Transportation';
+import AgreeField from './Agree';
 import { useModal, Modal } from '../../components/Modal';
 import AddressPicker from './AddressPicker';
 import TextField from '@mui/material/TextField';
 
 interface IFormData {
-  [key: string]: string;
+  [key: string]: string | string[];
   name: string;
   gender: typeof GENDER.FEMALE | typeof GENDER.MALE;
   dateOfBirth: string;
   address: string;
   phone: string;
   email: string;
+  transportation: string[];
 }
+
+const defaultValues = {
+  name: '',
+  gender: GENDER.FEMALE,
+  dateOfBirth: '',
+  address: '',
+  phone: '',
+  email: '',
+  transportation: [],
+};
+
+const NUMBER_OF_FIELDS = Object.keys(defaultValues).length;
 
 function UserInfo() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, dirtyFields },
     setValue,
     clearErrors,
-  } = useForm<IFormData>();
+  } = useForm<IFormData>({
+    defaultValues,
+  });
+  const [isAllAgreed, setIsAllAgreed] = useState<boolean>(false);
 
   const handleValid = (data: IFormData) => {
     console.log(data);
@@ -33,9 +51,18 @@ function UserInfo() {
   const { isOpen, isFadeIn, openModal, closeModal } = useModal();
   const handleAddressSelect = (address: string) => {
     closeModal();
-
-    setValue(ADDRESS.key, address);
+    setValue(ADDRESS.key, address, { shouldDirty: true });
     clearErrors(ADDRESS.key);
+  };
+
+  const checkAllInputEntered = (target: Record<string, boolean | boolean[]>) => {
+    const targetObjectLength = Object.keys(target).length;
+    if (targetObjectLength >= NUMBER_OF_FIELDS - 1) return true;
+    return false;
+  };
+
+  const checkAllAgreed = (agree: boolean) => {
+    setIsAllAgreed(agree);
   };
 
   return (
@@ -74,7 +101,19 @@ function UserInfo() {
             />
           </RadioWrapper>
         </InputWrapper>
-        <Button>제출</Button>
+        <InputWrapper>
+          <InputTitle>{TRANSPORTATION_SETTING.TITLE}</InputTitle>
+          <InputSubTitle>주로 이용하는 교통수단을 모두 선택해 주세요.</InputSubTitle>
+          <TransportationField
+            register={register(TRANSPORTATION_SETTING.KEY, { validate: (val) => !!val.length })}
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <AgreeField checkAllAgreed={checkAllAgreed} />
+        </InputWrapper>
+        <Button type='submit' disabled={!checkAllInputEntered(dirtyFields) || !isAllAgreed}>
+          제출하기
+        </Button>
       </Form>
       <Modal isOpen={isOpen} isFadeIn={isFadeIn} closeModal={closeModal}>
         <AddressPicker handleAddressSelect={handleAddressSelect} />
@@ -130,6 +169,10 @@ const InputWrapper = styled.div``;
 
 const InputTitle = styled.p`
   font-weight: 600;
+`;
+
+const InputSubTitle = styled.p`
+  font-weight: 300;
 `;
 
 const RadioWrapper = styled(RadioGroup)`
