@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useForm, DeepRequired, FieldErrorsImpl } from 'react-hook-form';
-import { SETTINGS, GENDER, ADDRESS } from '../../utils/input';
+import { SETTINGS, GENDER, ADDRESS, TRANSPORTATION_SETTING } from '../../utils/input';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import TransportationField from './Transportation';
+import AgreeField from './Agree';
 import { useModal, Modal } from '../../components/Modal';
 import AddressPicker from './AddressPicker';
 import TextField from '@mui/material/TextField';
 
 interface IFormData {
-  [key: string]: string;
+  [key: string]: string | string[];
   name: string;
   gender: typeof GENDER.FEMALE | typeof GENDER.MALE;
   dateOfBirth: string;
   address: string;
   phone: string;
   email: string;
+  transportation: string[];
 }
 
 function UserInfo() {
@@ -33,7 +36,6 @@ function UserInfo() {
   const { isOpen, isFadeIn, openModal, closeModal } = useModal();
   const handleAddressSelect = (address: string) => {
     closeModal();
-
     setValue(ADDRESS.key, address);
     clearErrors(ADDRESS.key);
   };
@@ -74,7 +76,17 @@ function UserInfo() {
             />
           </RadioWrapper>
         </InputWrapper>
-        <Button isValid={true}>지원하기</Button>
+        <InputWrapper>
+          <InputTitle>{TRANSPORTATION_SETTING.TITLE}</InputTitle>
+          <InputSubTitle>{TRANSPORTATION_SETTING.SUBTITLE}</InputSubTitle>
+          <TransportationField
+            register={register(TRANSPORTATION_SETTING.KEY, { validate: (val) => !!val.length })}
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <AgreeField />
+        </InputWrapper>
+        <Button type='submit'>제출하기</Button>
       </Form>
       <Modal isOpen={isOpen} isFadeIn={isFadeIn} closeModal={closeModal}>
         <AddressPicker handleAddressSelect={handleAddressSelect} closeModal={closeModal} />
@@ -134,6 +146,10 @@ const InputTitle = styled.p`
 
 const StyledTextField = styled(TextField)`
   width: 100%;
+`;
+
+const InputSubTitle = styled.p`
+  font-weight: 300;
 `;
 
 const RadioWrapper = styled(RadioGroup)`
