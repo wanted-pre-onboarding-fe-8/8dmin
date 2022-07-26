@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import styled from 'styled-components';
 import { FILE_NAME, TABLE_HEAD_LABELS } from '../utils/constants/table';
 
@@ -58,8 +58,9 @@ function DownloadLink() {
     },
   ];
 
-  const handleClick = () => {
+  const handleClick = (event: MouseEvent) => {
     if (!confirm('엑셀 다운로드를 하시겠습니까?')) {
+      event.preventDefault();
       return;
     }
 
