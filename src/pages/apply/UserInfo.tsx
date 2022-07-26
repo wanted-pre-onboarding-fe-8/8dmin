@@ -103,7 +103,7 @@ function UserInfo() {
         </InputWrapper>
         <InputWrapper>
           <InputTitle>{TRANSPORTATION_SETTING.TITLE}</InputTitle>
-          <InputSubTitle>주로 이용하는 교통수단을 모두 선택해 주세요.</InputSubTitle>
+          <InputSubTitle>{TRANSPORTATION_SETTING.SUBTITLE}</InputSubTitle>
           <TransportationField
             register={register(TRANSPORTATION_SETTING.KEY, { validate: (val) => !!val.length })}
           />
