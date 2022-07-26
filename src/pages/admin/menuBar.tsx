@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
 import Search from './search';
+import DownloadLink from '../../components/DownloadLink';
 
 export default function MenuBar() {
   return (
@@ -9,7 +10,7 @@ export default function MenuBar() {
       <Wrapper>
         <Search />
         <Button variant='contained' sx={{ p: '2px 40px', borderRadius: 4 }}>
-          엑셀 다운로드
+          <DownloadLink />
         </Button>
       </Wrapper>
     </>
