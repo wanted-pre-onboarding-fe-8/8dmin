@@ -1,68 +1,37 @@
-import React, { useState } from 'react';
-import { FormControlLabel, Checkbox, Button, IconButton } from '@mui/material';
+import React, { ReactNode, useEffect, useState, MouseEventHandler } from 'react';
+import styled from 'styled-components';
+import { FormControlLabel, Checkbox, IconButton, Divider } from '@mui/material';
 import { CheckCircleOutline, CheckCircle, ArrowForwardIos } from '@mui/icons-material';
-import { SubmitHandler, useForm, UseFormRegisterReturn } from 'react-hook-form';
 import { Notice, NoticeModal } from './Notice';
 import { POLICY } from '../../utils/input';
 
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
-interface agreedState {
-  [POLICY.PRIVACY]: boolean;
-  [POLICY.AGREEMENT]: boolean;
-}
-
 type PrivacyOrAgreement = typeof POLICY.PRIVACY | typeof POLICY.AGREEMENT;
 
-const PolicyField = ({
-  description,
-  onForwardBtnClick,
-  register,
-  checked,
-}: {
+interface AgreeProps {
+  checkAllAgreed: (agreement: boolean) => void;
+}
+
+interface PolicyFieldProps {
   description: string;
-  onForwardBtnClick: () => void;
-  register: UseFormRegisterReturn<PrivacyOrAgreement>;
   checked: boolean;
-}) => {
-  return (
-    <>
-      <FormControlLabel
-        {...register}
-        control={
-          <Checkbox
-            checked={checked}
-            {...label}
-            icon={<CheckCircleOutline />}
-            checkedIcon={<CheckCircle />}
-          />
-        }
-        label={<p>{description}</p>}
-      />
-      <IconButton onClick={onForwardBtnClick}>
-        <ArrowForwardIos />
-      </IconButton>
-    </>
-  );
-};
+  onForwardBtnClick: () => void;
+  onChange: () => void;
+}
 
-function Agree() {
-  const {
-    register,
-    watch,
-    setValue,
-    handleSubmit,
-    formState: { isValid },
-  } = useForm<agreedState>({
-    mode: 'onChange',
-    defaultValues: { [POLICY.PRIVACY]: false, [POLICY.AGREEMENT]: false },
-  });
-
-  const [privacy, agreement] = watch([POLICY.PRIVACY, POLICY.AGREEMENT]);
+function AgreeField({ checkAllAgreed }: AgreeProps) {
+  const [privacy, setPrivacy] = useState<boolean>(false);
+  const [agreement, setAgreement] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [mode, setMode] = useState<PrivacyOrAgreement>(POLICY.PRIVACY);
+  const isAllAgreed = privacy && agreement;
 
-  const onSubmit: SubmitHandler<agreedState> = (data) => console.log(data);
+  useEffect(() => {
+    if (isAllAgreed) {
+      checkAllAgreed(true);
+    } else {
+      checkAllAgreed(false);
+    }
+  }, [privacy, agreement]);
 
   const openModalHandler = (mode: PrivacyOrAgreement) => {
     setMode(mode);
@@ -73,48 +42,47 @@ function Agree() {
     setOpen(false);
   };
 
+  const handleAllAgreedClick: MouseEventHandler = (event) => {
+    event.preventDefault();
+    if (isAllAgreed) {
+      setPrivacy(false);
+      setAgreement(false);
+    } else {
+      setPrivacy(true);
+      setAgreement(true);
+    }
+  };
+
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControlLabel
-          onClick={(e) => {
-            e.preventDefault();
-            if (privacy && agreement) {
-              setValue(POLICY.AGREEMENT, false);
-              setValue(POLICY.PRIVACY, false, { shouldValidate: true });
-            } else {
-              setValue(POLICY.AGREEMENT, true);
-              setValue(POLICY.PRIVACY, true, { shouldValidate: true });
-            }
-          }}
-          control={
-            <Checkbox
-              {...label}
-              checked={privacy && agreement}
-              icon={<CheckCircleOutline />}
-              checkedIcon={<CheckCircle />}
-            />
-          }
-          label={<p>이용약관 모두 동의</p>}
-        />
-
-        <PolicyField
-          checked={privacy}
-          description='개인정보 처리방침 고지 (필수)'
-          register={register(POLICY.PRIVACY, { validate: (value) => value })}
-          onForwardBtnClick={() => openModalHandler(POLICY.PRIVACY)}
-        />
-        <PolicyField
-          checked={agreement}
-          description='제3자 정보제공 동의 (필수)'
-          register={register(POLICY.AGREEMENT, { validate: (value) => value })}
-          onForwardBtnClick={() => openModalHandler(POLICY.AGREEMENT)}
-        />
-
-        <Button type='submit' disabled={!isValid}>
-          제출하기
-        </Button>
-      </form>
+      <FormControlLabel
+        onClick={handleAllAgreedClick}
+        control={
+          <Checkbox
+            checked={privacy && agreement}
+            icon={<CheckCircleOutline />}
+            checkedIcon={<CheckCircle />}
+          />
+        }
+        label={<p>이용약관 모두 동의</p>}
+      />
+      <Divider />
+      <PolicyField
+        checked={privacy}
+        description='개인정보 처리방침 고지 (필수)'
+        onChange={() => {
+          setPrivacy((pre) => !pre);
+        }}
+        onForwardBtnClick={() => openModalHandler(POLICY.PRIVACY)}
+      />
+      <PolicyField
+        checked={agreement}
+        description='제3자 정보제공 동의 (필수)'
+        onChange={() => {
+          setAgreement((pre) => !pre);
+        }}
+        onForwardBtnClick={() => openModalHandler(POLICY.AGREEMENT)}
+      />
       <NoticeModal open={open} handleExit={closeModalHandler}>
         <Notice mode={mode} />
       </NoticeModal>
@@ -122,4 +90,26 @@ function Agree() {
   );
 }
 
-export default Agree;
+const PolicyField = ({ description, onForwardBtnClick, onChange, checked }: PolicyFieldProps) => {
+  return (
+    <Wrapper>
+      <FormControlLabel
+        onChange={onChange}
+        control={
+          <Checkbox checked={checked} icon={<CheckCircleOutline />} checkedIcon={<CheckCircle />} />
+        }
+        label={<p>{description}</p>}
+      />
+      <IconButton onClick={onForwardBtnClick}>
+        <ArrowForwardIos />
+      </IconButton>
+    </Wrapper>
+  );
+};
+
+export default AgreeField;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
