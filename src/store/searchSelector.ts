@@ -50,10 +50,11 @@ export const searchSelector = selectorFamily({
           }
           case SELECT_BIRTH: {
             const selectedBirth = applicantState.filter(
-              (candidate) =>
-                convertYear(candidate.birth) === keyword ||
-                convertYear(candidate.birth) + convertMonth(candidate.birth) === keyword ||
-                dateToString(candidate.birth) === keyword,
+              (applicant) =>
+                convertYear(applicant.dateOfBirth) === keyword ||
+                convertYear(applicant.dateOfBirth) + convertMonth(applicant.dateOfBirth) ===
+                  keyword ||
+                dateToString(applicant.dateOfBirth) === keyword,
             );
             return selectedBirth;
           }

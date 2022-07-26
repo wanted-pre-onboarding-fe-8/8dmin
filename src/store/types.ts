@@ -18,7 +18,7 @@ export interface MockCandidate {
   appliedAt: string;
   name: string;
   gender: Gender;
-  birth: string;
+  dateOfBirth: string;
   phone: string;
   email: string;
   transportation: Transportation;
