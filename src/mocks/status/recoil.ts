@@ -1,8 +1,28 @@
-import { atom } from 'recoil';
+import { atom, selectorFamily } from 'recoil';
+import { MOCK_APPLICANTS } from './table';
 
-const seriesState = atom({
-  key: 'seriesState',
+const totalSeriesCountState = atom({
+  key: 'totalSeriesCountState',
+  default: 100,
+});
+
+const selectedSeriesState = atom({
+  key: 'selectedSeriesState',
   default: 0,
 });
 
-export { seriesState };
+const applicantsState = atom({
+  key: 'applicantsState',
+  default: MOCK_APPLICANTS,
+});
+
+const applicantsBySeries = selectorFamily({
+  key: 'applicantsBySeries',
+  get:
+    (series) =>
+    ({ get }) => {
+      return get(applicantsState).filter((applicant) => applicant.series === series);
+    },
+});
+
+export { selectedSeriesState, applicantsBySeries, totalSeriesCountState };
