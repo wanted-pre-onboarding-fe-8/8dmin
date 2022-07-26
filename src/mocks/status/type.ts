@@ -3,7 +3,7 @@ export interface MockApplicant {
   series: number;
   appliedAt: string;
   name: string;
-  sex: string;
+  gender: string;
   dateOfBirth: string;
   phone: string;
   email: string;

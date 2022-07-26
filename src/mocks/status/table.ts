@@ -11,7 +11,7 @@ function createMockApplicants(series = 10, headcountPerSeries = 10) {
     for (let count = 0; count < headcountPerSeries; count++) {
       const id = series * 1000 + count;
       const name = `김${series}차${count + 1}`;
-      const sex = (count + 1) % 2 === 1 ? '남' : '여';
+      const gender = (count + 1) % 2 === 1 ? '남' : '여';
       const dateOfBirth = 'yyyy-mm-dd';
       const phone = '000-0000-0000';
       const email = 'some@email.com';
@@ -23,7 +23,7 @@ function createMockApplicants(series = 10, headcountPerSeries = 10) {
         id,
         series,
         name,
-        sex,
+        gender,
         dateOfBirth,
         phone,
         email,
