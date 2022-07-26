@@ -1,6 +1,7 @@
 import React from 'react';
 import MuiTabs from '@mui/material/Tabs';
 import MuiTab from '@mui/material/Tab';
+import MuiPaper from '@mui/material/Paper';
 import { styled } from '@mui/system';
 interface TabProps {
   length: number;
@@ -17,6 +18,7 @@ function Tab({ length }: TabProps) {
 
   return (
     <MuiTabs
+      component={MuiPaper}
       value={tabIndex}
       onChange={handleChange}
       variant='scrollable'
