@@ -88,6 +88,7 @@ function DownloadLink() {
 
 const Link = styled.a`
   text-decoration: none;
+  color: white;
 `;
 
 export default DownloadLink;
