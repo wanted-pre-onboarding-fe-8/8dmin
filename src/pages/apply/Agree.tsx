@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState, MouseEventHandler } from 'react';
+import React, { useEffect, useState, MouseEventHandler } from 'react';
 import styled from 'styled-components';
 import { FormControlLabel, Checkbox, IconButton, Divider } from '@mui/material';
 import { CheckCircleOutline, CheckCircle, ArrowForwardIos } from '@mui/icons-material';
