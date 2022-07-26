@@ -6,8 +6,8 @@ import MuiTableContainer from '@mui/material/TableContainer';
 import MuiTableHead from '@mui/material/TableHead';
 import MuiTableRow from '@mui/material/TableRow';
 import MuiPaper from '@mui/material/Paper';
-import MuiCheckbox from '@mui/material/Checkbox';
 import { TABLE_HEAD_LABELS } from '../../utils/constants/table';
+import TableRow from './TableRow';
 
 interface MockApplicant {
   id: number;
@@ -44,22 +44,7 @@ function Table({ applicants }: TableProps) {
         </MuiTableHead>
         <MuiTableBody>
           {applicants.map((applicant) => {
-            return (
-              <MuiTableRow key={applicant.id}>
-                <MuiTableCell align='center'>{applicant.id}</MuiTableCell>
-                <MuiTableCell align='center'>{applicant.appliedAt}</MuiTableCell>
-                <MuiTableCell align='center'>{applicant.name}</MuiTableCell>
-                <MuiTableCell align='center'>{applicant.sex}</MuiTableCell>
-                <MuiTableCell align='center'>{applicant.dateOfBirth}</MuiTableCell>
-                <MuiTableCell align='center'>{applicant.phone}</MuiTableCell>
-                <MuiTableCell align='center'>{applicant.email}</MuiTableCell>
-                <MuiTableCell align='center'>{applicant.mobility}</MuiTableCell>
-                <MuiTableCell align='center'>{applicant.region}</MuiTableCell>
-                <MuiTableCell align='center'>
-                  <MuiCheckbox checked={applicant.accepted} />
-                </MuiTableCell>
-              </MuiTableRow>
-            );
+            return <TableRow key={applicant.id} applicant={applicant} />;
           })}
         </MuiTableBody>
       </MuiTable>
