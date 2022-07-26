@@ -31,27 +31,16 @@ export default function Admin() {
   const [series, setSeries] = useRecoilState<number>(seriesState);
   const [page, setPage] = useRecoilState<number>(pageState);
   const [order, setOrder] = useState<string>(ORDER_ID);
-  console.log(applicants);
-  const sortApplicants = useRecoilValue(
-    sortApplicantSelector({
-      applicants: searchSelector({
-        applicants: applicantSelector(series),
-      }),
-      order: order,
-    }),
-  );
-  const pageRange = Math.ceil(sortApplicants.length / 10);
-  const pageNationCandidates = useRecoilValue(
-    pageNationSelector({
-      applicants: sortApplicantSelector({
-        applicants: searchSelector({
-          applicants: applicantSelector(series),
-        }),
-        order: order,
-      }),
-    }),
-  );
-  console.log(applicants);
+
+  const seriesSelect = applicantSelector(series);
+  const searchSelect = searchSelector({ applicants: seriesSelect });
+  const sortSelect = sortApplicantSelector({ applicants: searchSelect, order: order });
+  const pageSelect = pageNationSelector({ applicants: sortSelect });
+  const sortedApplicants = useRecoilValue(sortSelect);
+  const pagedApplicants = useRecoilValue(pageSelect);
+
+  const pageRange = Math.ceil(sortedApplicants.length / 10);
+
   const handleSeriesClick = (series: React.SetStateAction<number>) => {
     setSeries(series);
     setPage(1);
@@ -94,7 +83,7 @@ export default function Admin() {
       <button onClick={() => handleSortedClick(ORDER_BIRTH)}>생년월일</button>
       <br />
       <span>
-        {pageNationCandidates.map(
+        {pagedApplicants.map(
           (applicant) =>
             `이름: ${applicant.name} 지원날짜 : ${applicant.appliedAt}  성별 : ${applicant.gender}  생년월일: ${applicant.dateOfBirth} 운송수단: ${applicant.transportation}  지역:${applicant.region} |`,
         )}
