@@ -6,10 +6,17 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { SELECT_OPTIONS_CONTANST } from '../../utils/constants/application';
 import { DATE_VALIDATION } from '../../utils/input/validation';
 
-export default function Search() {
+interface ISearchProps {
+  onActiveChange: () => void;
+  active: boolean;
+}
+
+export default function Search({ onActiveChange, active }: ISearchProps) {
   const [select, setSelect] = React.useState('dateOfApply');
   const [input, setInput] = React.useState('');
   const [keyword, setKeyword] = React.useState('');
@@ -117,6 +124,9 @@ export default function Search() {
         <InputDiv>{InputField[select]}</InputDiv>
         <IconButton sx={{ p: '10px' }} type='submit' aria-label='search'>
           <SearchIcon />
+        </IconButton>
+        <IconButton sx={{ p: '10px' }} type='button' onClick={onActiveChange}>
+          {active ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
         </IconButton>
       </Paper>
     </>
