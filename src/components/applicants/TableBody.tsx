@@ -9,8 +9,9 @@ interface TableBodyProps {
 function TableBody({ applicants }: TableBodyProps) {
   return (
     <MuiTableBody>
-      {applicants.map((applicant) => {
-        return <TableRow key={applicant.id} applicant={applicant} />;
+      {applicants.map((applicant, index) => {
+        const numberedApplicant = { ...applicant, number: index + 1 };
+        return <TableRow key={applicant.id} applicant={numberedApplicant} />;
       })}
     </MuiTableBody>
   );
