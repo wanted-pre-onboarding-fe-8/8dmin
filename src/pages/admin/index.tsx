@@ -7,20 +7,12 @@ import mockdata from '../../mocks/applicant.json';
 import { ORDER_CONSTANTS } from '../../utils/constants/data';
 import { MockCandidates } from '../../store/types';
 import {
-<<<<<<< HEAD
   allApplicantState,
   seriesState,
   pageState,
   applicantSelector,
   searchSelector,
   sortApplicantSelector,
-=======
-  allCandidateState,
-  seriesState,
-  candidateSelector,
-  searchSelector,
-  sortCandidateSelector,
->>>>>>> d648fe05cd4da95aa79315e95db4d1fcb1b1bcf9
   pageNationSelector,
 } from '../../store';
 
