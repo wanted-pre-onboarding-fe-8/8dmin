@@ -1,6 +1,6 @@
 import { allApplicantState, seriesState, keywordState, selectState, pageState } from './atoms';
 import { applicantSelector } from './applicantSelector';
-import { searchSelector } from './searchSelector';
+import searchSelector from './searchSelector';
 import { sortApplicantSelector } from './sortApplicantSelector';
 import pageNationSelector from './pageNationSelector';
 

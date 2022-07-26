@@ -20,7 +20,7 @@ const {
   SELECT_REGION,
 } = SELECT_CONSTANTS;
 const DESTIGNATION = '자';
-export const searchSelector = selectorFamily({
+const searchSelector = selectorFamily({
   key: 'searchSelector',
   get:
     ({ applicants }: { applicants: RecoilValue<MockCandidates> }) =>
@@ -83,3 +83,4 @@ export const searchSelector = selectorFamily({
       return applicantState;
     },
 });
+export default searchSelector;
