@@ -1,23 +1,44 @@
-import { atom, selectorFamily } from 'recoil';
+import { atom, selector } from 'recoil';
 import { MOCK_APPLICANTS } from './table';
+import { MockApplicant } from './type';
 
 const applicantsState = atom({
   key: 'applicantsState',
   default: MOCK_APPLICANTS,
 });
 
-const applicantsBySeries = selectorFamily({
+const totalApplicantsCount = selector({
+  key: 'totalApplicantsCount',
+  get: ({ get }) => {
+    const origin = MOCK_APPLICANTS;
+    const series = get(selectedSeriesState);
+    const filtered = origin.filter((applicant) => applicant.series === series);
+    return filtered.length;
+  },
+});
+
+const applicantsBySeries = selector({
   key: 'applicantsBySeries',
-  get:
-    (series) =>
-    ({ get }) => {
-      return get(applicantsState).filter((applicant) => applicant.series === series);
-    },
+  get: ({ get }) => {
+    const series = get(selectedSeriesState);
+    const filteredApplicants = get(applicantsState).filter(
+      (applicant) => applicant.series === series,
+    );
+    const pagedApplicants = (applicants: MockApplicant[]) => {
+      const page = get(pageState);
+      const rowsPerPage = get(rowsPerPageState);
+      const start = (page - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      return applicants.slice(start, end);
+    };
+    return pagedApplicants(filteredApplicants);
+  },
+  set: ({ set }, newValue) => set(applicantsState, newValue),
 });
 
 const pageState = atom({
   key: 'pageState',
-  default: 0,
+  default: 1,
 });
 
 const rowsPerPageState = atom({
@@ -40,5 +61,6 @@ export {
   pageState,
   rowsPerPageState,
   selectedSeriesState,
+  totalApplicantsCount,
   totalSeriesCountState,
 };
