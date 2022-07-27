@@ -29,16 +29,25 @@ export function useModal() {
 interface IModal {
   isOpen: boolean;
   isFadeIn: boolean;
-  closeModal: () => void;
   children: JSX.Element;
   boxPosition: boxPosition;
 }
 
-export function Modal({ isOpen, isFadeIn, closeModal, children, boxPosition }: IModal) {
+export function Modal({ isOpen, isFadeIn, children, boxPosition }: IModal) {
+  React.useEffect(() => {
+    if (!isOpen) return;
+    document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = 'position: ""; top: "";';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    };
+  }, [isOpen]);
+
   return (
     <>
       {isOpen && (
-        <Overlay isFadeIn={isFadeIn} duration={duration} onClick={closeModal}>
+        <Overlay isFadeIn={isFadeIn} duration={duration}>
           <Wrapper boxPosition={boxPosition} onClick={(event) => event.stopPropagation()}>
             {children}
           </Wrapper>
@@ -56,16 +65,15 @@ const Overlay = styled.div<{ isFadeIn: boolean; duration: number }>`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
+  justify-content: center;
   z-index: 999;
 
   animation: ${({ isFadeIn }) => (isFadeIn ? fadeIn : fadeOut)};
   animation-duration: ${({ duration }) => `${duration + 100}ms`};
 `;
 const Wrapper = styled.div<{ boxPosition: boxPosition }>`
-  width: 100%;
   ${({ boxPosition }) => boxPosition === BOX_POSITION.BOTTOM && 'position: absolute; bottom:0px;'}
-  display: flex;
-  justify-content: center;
+  ${({ boxPosition }) => boxPosition === BOX_POSITION.MID && 'align-self: center;'}
 `;
 
 const fadeIn = keyframes`

@@ -113,9 +113,11 @@ function UserInfo() {
         <InputWrapper>
           <InputTitle>{TRANSPORTATION_SETTING.TITLE}</InputTitle>
           <InputSubTitle>{TRANSPORTATION_SETTING.SUBTITLE}</InputSubTitle>
-          <TransportationField
-            register={register(TRANSPORTATION_SETTING.KEY, { validate: (val) => !!val.length })}
-          />
+          <TransportationWrapper>
+            <TransportationField
+              register={register(TRANSPORTATION_SETTING.KEY, { validate: (val) => !!val.length })}
+            />
+          </TransportationWrapper>
         </InputWrapper>
         <InputWrapper>
           <AgreeField checkAllAgreed={checkAllAgreed} />
@@ -124,20 +126,10 @@ function UserInfo() {
           제출하기
         </Button>
       </Form>
-      <Modal
-        isOpen={isOpen}
-        isFadeIn={isFadeIn}
-        boxPosition={BOX_POSITION.BOTTOM}
-        closeModal={closeModal}
-      >
+      <Modal isOpen={isOpen} isFadeIn={isFadeIn} boxPosition={BOX_POSITION.BOTTOM}>
         <AddressPicker handleAddressSelect={handleAddressSelect} closeModal={closeModal} />
       </Modal>
-      <Modal
-        isOpen={isCompleteNoticeOpen}
-        isFadeIn={true}
-        boxPosition={BOX_POSITION.MID}
-        closeModal={closeCompleteNoticeModal}
-      >
+      <Modal isOpen={isCompleteNoticeOpen} isFadeIn={true} boxPosition={BOX_POSITION.MID}>
         <CompleteNotice closeModal={closeCompleteNoticeModal} />
       </Modal>
     </>
@@ -198,15 +190,25 @@ const StyledTextField = styled(TextField)`
 `;
 
 const InputSubTitle = styled.p`
+  font-size: 14px;
   font-weight: 300;
 `;
 
 const RadioWrapper = styled(RadioGroup)`
   display: flex;
+  > :first-child {
+    margin-right: 100px;
+  }
+`;
+
+const TransportationWrapper = styled.div`
+  margin-top: 25px;
+  margin-bottom: 20px;
 `;
 
 const Button = styled.button<{ isValid: boolean }>`
-  margin-top: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   width: 100%;
   padding: 15px;
   background-color: ${({ isValid }) => (isValid ? '#4b4b4b' : 'lightgray')};
