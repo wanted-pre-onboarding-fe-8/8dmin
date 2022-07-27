@@ -3,10 +3,10 @@ import Tab from './Tab';
 import Table from './Table';
 import styled from 'styled-components';
 import { LATEST_SERIES_COUNT } from '../../utils/constants/table';
-import { MockCandidate } from '../../store/types';
+import { MockCandidates } from '../../store/types';
 
 interface StatusProps {
-  applicants: MockCandidate[];
+  applicants: MockCandidates;
 }
 
 function Status({ applicants }: StatusProps) {

@@ -1,8 +1,9 @@
 import { atom } from 'recoil';
+import { applicants } from '../mocks/applicant.json';
 
 export const allApplicantState = atom({
   key: 'allapplicantState',
-  default: [],
+  default: applicants,
 });
 
 export const seriesState = atom({

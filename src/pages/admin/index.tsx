@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import MenuBar from './menuBar';
 import Status from '../../components/applicants/Status';
 import Pagination from '../../components/Pagination';
+import { useRecoilValue } from 'recoil';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { pagedApplicantsByCurrentSeries } from '../../store/recoil';
 
 import { format } from 'date-fns';
 import RefreshIcon from '@mui/icons-material/Refresh';
@@ -20,6 +22,7 @@ export default function Admin() {
     renewal();
   }, []);
 
+  const applicants = useRecoilValue(pagedApplicantsByCurrentSeries);
   const [renewalDate, setRenewalDate] = useState('');
   const renewal = () => {
     // setApplicants(mockdata.applicants);
@@ -35,7 +38,7 @@ export default function Admin() {
         <RenewalButton>hello</RenewalButton>
       </RenewalWrapper>
       <MenuBar />
-      <Status />
+      <Status applicants={applicants} />
       <Pagination />
     </Wrapper>
   );
