@@ -17,7 +17,7 @@ function TableRow({ applicant }: TableRowProps) {
       <MuiTableCell align='center'>{applicant.dateOfBirth}</MuiTableCell>
       <MuiTableCell align='center'>{applicant.phone}</MuiTableCell>
       <MuiTableCell align='center'>{applicant.email}</MuiTableCell>
-      <MuiTableCell align='center'>{applicant.transportation}</MuiTableCell>
+      <MuiTableCell align='center'>{applicant.transportation.join(', ')}</MuiTableCell>
       <MuiTableCell align='center'>{applicant.region}</MuiTableCell>
       <MuiTableCell align='center'>
         <MuiCheckbox checked={applicant.accepted} />
