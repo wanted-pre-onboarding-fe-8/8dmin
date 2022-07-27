@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '@mui/material';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { fontSize } from '@mui/system';
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -9,10 +10,20 @@ export default function Landing() {
   return (
     <Wrapper>
       <ButtonWrapper>
-        <Button sx={{ p: 4 }} size='large' onClick={() => navigate('/apply')}>
-          AI 학습용 데이터 크라우드 워커 지원하러가기
+        <Button
+          sx={{ p: 6 }}
+          style={{ backgroundColor: 'white', fontSize: '18px' }}
+          onClick={() => navigate('/apply')}
+        >
+          AI 학습용 데이터
+          <br /> 크라우드 워커
+          <br /> 지원하러가기
         </Button>
-        <Button sx={{ p: 4 }} size='large' onClick={() => navigate('/login')}>
+        <Button
+          sx={{ p: 6 }}
+          style={{ marginLeft: 'auto', backgroundColor: 'white', fontSize: '18px' }}
+          onClick={() => navigate('/login')}
+        >
           관리자 로그인
         </Button>
       </ButtonWrapper>
@@ -31,7 +42,4 @@ const Wrapper = styled.div`
 const ButtonWrapper = styled.div`
   width: 50%;
   display: flex;
-  flex-direction: column;
-  background: white;
-  border-radius: 10px;
 `;
