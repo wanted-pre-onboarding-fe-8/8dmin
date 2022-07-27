@@ -4,7 +4,7 @@ import MuiTabs from '@mui/material/Tabs';
 import MuiTab from '@mui/material/Tab';
 import MuiPaper from '@mui/material/Paper';
 import { styled } from '@mui/system';
-import { seriesState } from '../../store/atoms';
+import { seriesState, pageState } from '../../store';
 interface TabProps {
   length: number;
 }
@@ -12,11 +12,13 @@ interface TabProps {
 function Tab({ length }: TabProps) {
   const tabList = createTabList(length);
   const [selectedSeries, setSelectedSeries] = useRecoilState(seriesState);
+  const [, setPage] = useRecoilState(pageState);
   const tabIndex = selectedSeries - 1;
 
   const handleChange = (event: React.SyntheticEvent, tabIndex: number) => {
     const series = tabIndex + 1;
     setSelectedSeries(series);
+    setPage(1);
   };
 
   return (
