@@ -54,7 +54,7 @@ function AgreeField({ checkAllAgreed }: AgreeProps) {
   };
 
   return (
-    <>
+    <AgreeFieldWrapper>
       <FormControlLabel
         onClick={handleAllAgreedClick}
         control={
@@ -86,13 +86,13 @@ function AgreeField({ checkAllAgreed }: AgreeProps) {
       <NoticeModal open={open} handleExit={closeModalHandler}>
         <Notice mode={mode} />
       </NoticeModal>
-    </>
+    </AgreeFieldWrapper>
   );
 }
 
 const PolicyField = ({ description, onForwardBtnClick, onChange, checked }: PolicyFieldProps) => {
   return (
-    <Wrapper>
+    <PolicyWrapper>
       <FormControlLabel
         onChange={onChange}
         control={
@@ -103,13 +103,22 @@ const PolicyField = ({ description, onForwardBtnClick, onChange, checked }: Poli
       <IconButton onClick={onForwardBtnClick}>
         <ArrowForwardIos />
       </IconButton>
-    </Wrapper>
+    </PolicyWrapper>
   );
 };
 
 export default AgreeField;
 
-const Wrapper = styled.div`
+const PolicyWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+const AgreeFieldWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  & label > .MuiFormControlLabel-label {
+    font-size: 0.9rem;
+  }
 `;
