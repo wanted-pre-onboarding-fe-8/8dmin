@@ -67,12 +67,11 @@ const searchSelector = selectorFamily({
             return selectedTransportaion;
           }
           case SELECT_REGION: {
-            const selectedRegion = applicantState.filter(
-              (candidate) =>
-                spaceToArray(candidate.region)[0] === keyword ||
-                spaceToArray(candidate.region)[1] === keyword ||
-                spaceDeleteToString(candidate.region) === keyword,
-            );
+            const splitKeyword = keyword.split(' ');
+            const selectedRegion = applicantState.filter((candidate) => {
+              const integrated = candidate.region.replace(' ', '');
+              return splitKeyword.every((kwd) => integrated.includes(kwd));
+            });
             return selectedRegion;
           }
           default: {
