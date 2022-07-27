@@ -41,10 +41,14 @@ function Status() {
 
 export default Status;
 
-const Container = styled.section``;
+const Container = styled.section`
+  width: 100%;
+  margin-top: 24px;
+`;
 const StyledPagination = styled(Pagination)`
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
+  margin-top: 24px;
+  & > ul:first-child {
+    justify-content: center;
+  }
 `;

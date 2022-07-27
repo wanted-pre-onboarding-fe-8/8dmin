@@ -48,5 +48,4 @@ export default Tab;
 
 const StyledMuiTab = styled(MuiTab)`
   flex: 1;
-  min-width: 160px;
 `;
