@@ -8,6 +8,12 @@ interface TableRowProps {
 }
 
 function TableRow({ applicant }: TableRowProps) {
+  const [checked, setChecked] = React.useState(applicant.accepted);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
+
   return (
     <MuiTableRow key={applicant.id}>
       <MuiTableCell align='center'>{applicant.number}</MuiTableCell>
@@ -20,7 +26,7 @@ function TableRow({ applicant }: TableRowProps) {
       <MuiTableCell align='center'>{applicant.transportation.join(', ')}</MuiTableCell>
       <MuiTableCell align='center'>{applicant.region}</MuiTableCell>
       <MuiTableCell align='center'>
-        <MuiCheckbox checked={applicant.accepted} />
+        <MuiCheckbox checked={checked} onChange={handleChange} />
       </MuiTableCell>
     </MuiTableRow>
   );
