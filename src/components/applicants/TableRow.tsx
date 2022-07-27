@@ -13,7 +13,7 @@ function TableRow({ applicant }: TableRowProps) {
       <MuiTableCell align='center'>{applicant.number}</MuiTableCell>
       <MuiTableCell align='center'>{applicant.appliedAt}</MuiTableCell>
       <MuiTableCell align='center'>{applicant.name}</MuiTableCell>
-      <MuiTableCell align='center'>{applicant.sex}</MuiTableCell>
+      <MuiTableCell align='center'>{applicant.gender}</MuiTableCell>
       <MuiTableCell align='center'>{applicant.dateOfBirth}</MuiTableCell>
       <MuiTableCell align='center'>{applicant.phone}</MuiTableCell>
       <MuiTableCell align='center'>{applicant.email}</MuiTableCell>
