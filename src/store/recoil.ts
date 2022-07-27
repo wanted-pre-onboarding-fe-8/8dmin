@@ -29,6 +29,9 @@ const pagedApplicantsByCurrentSeries = selector({
     const end = start + rowsPerPage;
     return applicants.slice(start, end);
   },
+  set: ({ set }, newValue) => {
+    return set(allApplicantState, newValue);
+  },
 });
 
 export {

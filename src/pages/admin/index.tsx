@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import MenuBar from './menuBar';
 import Status from '../../components/applicants/Status';
 import Pagination from '../../components/Pagination';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { pagedApplicantsByCurrentSeries } from '../../store/recoil';
 
 import { format } from 'date-fns';
 import RefreshIcon from '@mui/icons-material/Refresh';
+
+import mockdata from '../../mocks/applicant.json';
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -22,10 +24,10 @@ export default function Admin() {
     renewal();
   }, []);
 
-  const applicants = useRecoilValue(pagedApplicantsByCurrentSeries);
+  const [applicants, setApplicants] = useRecoilState(pagedApplicantsByCurrentSeries);
   const [renewalDate, setRenewalDate] = useState('');
   const renewal = () => {
-    // setApplicants(mockdata.applicants);
+    setApplicants(mockdata.applicants);
     const nowTime = getRenewalDate();
     setRenewalDate(nowTime);
   };
