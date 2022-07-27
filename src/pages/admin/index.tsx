@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import MenuBar from './menuBar';
 import Status from '../../components/applicants/Status';
+import Pagination from '../../components/Pagination';
 
 import mockdata from '../../mocks/applicant.json';
 import { ORDER_CONSTANTS } from '../../utils/constants/data';
@@ -99,6 +100,7 @@ export default function Admin() {
       </RenewalWrapper>
       <MenuBar />
       <Status />
+      <Pagination />
     </Wrapper>
   );
 }
