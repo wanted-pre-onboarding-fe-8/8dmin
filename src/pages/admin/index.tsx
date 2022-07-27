@@ -3,9 +3,17 @@ import styled from 'styled-components';
 import MenuBar from './menuBar';
 import Status from '../../components/applicants/Status';
 import Pagination from '../../components/Pagination';
-import { useRecoilState } from 'recoil';
+
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { pagedApplicantsByCurrentSeries } from '../../store/recoil';
+import {
+  keywordState,
+  seriesState,
+  applicantSelector,
+  searchSelector,
+  allApplicantState,
+  pagingSelector,
+} from '../../store';
 
 import { format } from 'date-fns';
 import RefreshIcon from '@mui/icons-material/Refresh';
@@ -24,10 +32,20 @@ export default function Admin() {
     renewal();
   }, []);
 
-  const [applicants, setApplicants] = useRecoilState(pagedApplicantsByCurrentSeries);
+  const series = useRecoilValue(seriesState);
+  const [, setAllApplicants] = useRecoilState(allApplicantState);
+
+  const keyword = useRecoilValue(keywordState);
+  const seriesSelect = applicantSelector(series);
+  const searchSelect = searchSelector({ applicants: seriesSelect });
+  const pagedSearchResult = pagingSelector({ applicants: searchSelect });
+  const searchResult = useRecoilValue(pagedSearchResult);
+
+  const pagedApplicants = useRecoilValue(pagingSelector({ applicants: seriesSelect }));
+
   const [renewalDate, setRenewalDate] = useState('');
   const renewal = () => {
-    setApplicants(mockdata.applicants);
+    setAllApplicants(mockdata.applicants);
     const nowTime = getRenewalDate();
     setRenewalDate(nowTime);
   };
@@ -40,7 +58,7 @@ export default function Admin() {
         <RenewalButton>hello</RenewalButton>
       </RenewalWrapper>
       <MenuBar />
-      <Status applicants={applicants} />
+      {keyword ? <Status applicants={searchResult} /> : <Status applicants={pagedApplicants} />}
       <Pagination />
     </Wrapper>
   );

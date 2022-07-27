@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 import original from '../mocks/applicant.json';
 
 export const allApplicantState = atom({
-  key: 'allapplicantState',
+  key: 'allApplicantState',
   default: original.applicants,
 });
 

@@ -10,7 +10,7 @@ import { applicantSelector } from './applicantSelector';
 import searchSelector from './searchSelector';
 import { sortApplicantSelector } from './sortApplicantSelector';
 import pageNationSelector from './pageNationSelector';
-import { countApplicantsByCurrentSeries } from './recoil';
+import { countApplicantsByCurrentSeries, pagingSelector } from './recoil';
 
 export {
   allApplicantState,
@@ -24,4 +24,5 @@ export {
   pageNationSelector,
   rowsPerPageState,
   countApplicantsByCurrentSeries,
+  pagingSelector,
 };
