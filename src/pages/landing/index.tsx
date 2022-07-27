@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@mui/material';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { fontSize } from '@mui/system';
+import { borderRadius, fontSize } from '@mui/system';
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export default function Landing() {
       <ButtonWrapper>
         <Button
           sx={{ p: 6 }}
-          style={{ backgroundColor: 'white', fontSize: '18px' }}
+          style={{ backgroundColor: 'white', fontSize: '18px', borderRadius: '12px' }}
           onClick={() => navigate('/apply')}
         >
           AI 학습용 데이터
@@ -21,7 +21,12 @@ export default function Landing() {
         </Button>
         <Button
           sx={{ p: 6 }}
-          style={{ marginLeft: 'auto', backgroundColor: 'white', fontSize: '18px' }}
+          style={{
+            marginLeft: 'auto',
+            backgroundColor: 'white',
+            fontSize: '18px',
+            borderRadius: '12px',
+          }}
           onClick={() => navigate('/login')}
         >
           관리자 로그인
