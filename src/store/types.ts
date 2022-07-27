@@ -1,4 +1,4 @@
-export type Gender = '남' | '여';
+// export type Gender = '남' | '여';
 export type Transportation =
   | '버스'
   | '지하철'
@@ -13,7 +13,7 @@ export interface MockCandidate {
   series: number;
   appliedAt: string;
   name: string;
-  gender: Gender;
+  gender: string;
   dateOfBirth: string;
   phone: string;
   email: string;

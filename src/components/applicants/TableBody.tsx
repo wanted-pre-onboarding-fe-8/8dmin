@@ -1,9 +1,9 @@
 import React from 'react';
 import MuiTableBody from '@mui/material/TableBody';
 import TableRow from './TableRow';
-import { MockApplicant } from '../../mocks/status/type';
+import { MockCandidate } from '../../store/types';
 interface TableBodyProps {
-  applicants: MockApplicant[];
+  applicants: MockCandidate[];
 }
 
 function TableBody({ applicants }: TableBodyProps) {

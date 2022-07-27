@@ -2,12 +2,18 @@ import React from 'react';
 import MuiTableRow from '@mui/material/TableRow';
 import MuiTableCell from '@mui/material/TableCell';
 import MuiCheckbox from '@mui/material/Checkbox';
-import { MockApplicant } from '../../mocks/status/type';
+import { MockCandidate } from '../../store/types';
 interface TableRowProps {
-  applicant: MockApplicant & { number: number };
+  applicant: MockCandidate & { number: number };
 }
 
 function TableRow({ applicant }: TableRowProps) {
+  const [checked, setChecked] = React.useState(applicant.accepted);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
+
   return (
     <MuiTableRow key={applicant.id}>
       <MuiTableCell align='center'>{applicant.number}</MuiTableCell>
@@ -17,10 +23,10 @@ function TableRow({ applicant }: TableRowProps) {
       <MuiTableCell align='center'>{applicant.dateOfBirth}</MuiTableCell>
       <MuiTableCell align='center'>{applicant.phone}</MuiTableCell>
       <MuiTableCell align='center'>{applicant.email}</MuiTableCell>
-      <MuiTableCell align='center'>{applicant.mobility}</MuiTableCell>
+      <MuiTableCell align='center'>{applicant.transportation.join(', ')}</MuiTableCell>
       <MuiTableCell align='center'>{applicant.region}</MuiTableCell>
       <MuiTableCell align='center'>
-        <MuiCheckbox checked={applicant.accepted} />
+        <MuiCheckbox checked={checked} onChange={handleChange} />
       </MuiTableCell>
     </MuiTableRow>
   );

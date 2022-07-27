@@ -4,9 +4,9 @@ import MuiTableContainer from '@mui/material/TableContainer';
 import MuiPaper from '@mui/material/Paper';
 import TableHead from './TableHead';
 import TableBody from './TableBody';
-import { MockApplicant } from '../../mocks/status/type';
+import { MockCandidate } from '../../store/types';
 interface TableProps {
-  applicants: MockApplicant[];
+  applicants: MockCandidate[];
 }
 
 function Table({ applicants }: TableProps) {
