@@ -1,20 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MockCandidates } from '../store/types';
 import { FILE_NAME, TABLE_HEAD_LABELS } from '../utils/constants/table';
+import { useRecoilValue } from 'recoil';
+import { seriesState } from '../store/atoms';
+import { applicantSelector, sortApplicantSelector } from '../store';
+import searchSelector from '../store/searchSelector';
+import { ORDER_CONSTANTS } from '../utils/constants/data';
 
-interface DownloadLinkProps {
-  applicant: MockCandidates;
-}
-
-function DownloadLink({ applicant }: DownloadLinkProps) {
+export default function DownloadLink() {
   const linkRef = React.useRef<HTMLAnchorElement>(null);
+  const series = useRecoilValue(seriesState);
+
+  const seriesSelect = applicantSelector(series);
+  const searchSelect = searchSelector({ applicants: seriesSelect });
+  const sortSelect = sortApplicantSelector({
+    applicants: searchSelect,
+    order: ORDER_CONSTANTS.ORDER_ID,
+  });
+
+  const applicants = useRecoilValue(sortSelect);
+
+  console.log(applicants, series);
 
   const handleClick = () => {
     let csvString = TABLE_HEAD_LABELS.join(',') + '\n';
 
-    applicant.forEach((value) => {
-      csvString += `${value.id},${value.appliedAt},${value.name},${value.gender},${
+    applicants.forEach((value, index) => {
+      csvString += `${index + 1},${value.appliedAt},${value.name},${value.gender},${
         value.dateOfBirth
       },${value.phone},${value.email},${value.transportation.join(' ')},${value.region},${
         value.accepted
@@ -30,7 +42,7 @@ function DownloadLink({ applicant }: DownloadLinkProps) {
   };
 
   return (
-    <Link onClick={handleClick} ref={linkRef} download={FILE_NAME}>
+    <Link onClick={handleClick} ref={linkRef} download={`${FILE_NAME} ${series}차.csv`}>
       엑셀 다운로드
     </Link>
   );
@@ -40,5 +52,3 @@ const Link = styled.a`
   text-decoration: none;
   color: white;
 `;
-
-export default DownloadLink;
