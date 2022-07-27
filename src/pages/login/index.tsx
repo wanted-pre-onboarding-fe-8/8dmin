@@ -1,32 +1,65 @@
-import React from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+
+const admin = {
+  id: 'admin',
+  password: '1234',
+};
 
 export default function Login() {
+  const [id, setId] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const navigate = useNavigate();
+
+  const handleIdChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setId(event.target.value);
+  };
+
+  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    if (id != admin.id || password != admin.password) {
+      alert('아이디 또는 비밀번호가 틀립니다.');
+      return;
+    }
+
+    navigate('/admin', { state: { id, password } });
+  };
+
   return (
     <Wrapper>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Container sx={{ p: 8, pt: 5, pb: 5 }}>
           <Typography sx={{ pb: 2 }}>관리자 로그인</Typography>
           <TextField
             type='text'
-            id='outlined-basic'
             label='로그인'
             variant='outlined'
             autoComplete='off'
             size='small'
             sx={{ mb: 1 }}
+            value={id}
+            onChange={handleIdChange}
           />
           <TextField
             type='password'
-            id='outlined-basic'
             label='패스워드'
             variant='outlined'
             autoComplete='off'
             size='small'
             sx={{ mb: 1 }}
+            value={password}
+            onChange={handlePasswordChange}
           />
-          <Button variant='contained'>로그인</Button>
+          <Button variant='contained' type='submit'>
+            로그인
+          </Button>
         </Container>
       </Form>
     </Wrapper>
