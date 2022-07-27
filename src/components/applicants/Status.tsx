@@ -8,12 +8,11 @@ import {
   pageState,
   rowsPerPageState,
   totalApplicantsCount,
-  totalSeriesCountState,
 } from '../../mocks/status/recoil';
+import { LATEST_SERIES_COUNT } from '../../utils/constants/table';
 import { Pagination } from '@mui/material';
 
 function Status() {
-  const totalSeriesCount = useRecoilValue(totalSeriesCountState);
   const applicantCount = useRecoilValue(totalApplicantsCount);
   const [applicants, setApplicants] = useRecoilState(applicantsBySeries);
   const [page, setPage] = useRecoilState(pageState);
@@ -26,7 +25,7 @@ function Status() {
 
   return (
     <Container>
-      <Tab length={totalSeriesCount} />
+      <Tab length={LATEST_SERIES_COUNT} />
       <Table applicants={applicants} />
       <StyledPagination
         count={maxPage}
