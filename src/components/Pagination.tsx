@@ -1,14 +1,15 @@
 import React from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { pageState, rowsPerPageState, countApplicantsByCurrentSeries } from '../store';
+import { useRecoilState } from 'recoil';
+import { pageState } from '../store';
 import MuiPagination from '@mui/material/Pagination';
 import styled from 'styled-components';
 
-function Pagination() {
+interface PaginationProps {
+  maxPage: number;
+}
+
+function Pagination({ maxPage }: PaginationProps) {
   const [page, setPage] = useRecoilState(pageState);
-  const rowsPerPage = useRecoilValue(rowsPerPageState);
-  const applicantCount = useRecoilValue(countApplicantsByCurrentSeries);
-  const maxPage = Math.ceil(applicantCount / rowsPerPage);
 
   const handleChangePage = (event: React.ChangeEvent<unknown>, page: number) => {
     setPage(page);

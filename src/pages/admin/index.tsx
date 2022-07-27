@@ -13,6 +13,7 @@ import {
   searchSelector,
   allApplicantState,
   pagingSelector,
+  rowsPerPageState,
 } from '../../store';
 
 import { format } from 'date-fns';
@@ -34,14 +35,18 @@ export default function Admin() {
 
   const series = useRecoilValue(seriesState);
   const [, setAllApplicants] = useRecoilState(allApplicantState);
+  const seriesSelect = applicantSelector(series);
+  const applicantCount = useRecoilValue(seriesSelect).length;
+  const pagedApplicants = useRecoilValue(pagingSelector({ applicants: seriesSelect }));
 
   const keyword = useRecoilValue(keywordState);
-  const seriesSelect = applicantSelector(series);
   const searchSelect = searchSelector({ applicants: seriesSelect });
+  const searchCount = useRecoilValue(searchSelect).length;
   const pagedSearchResult = pagingSelector({ applicants: searchSelect });
   const searchResult = useRecoilValue(pagedSearchResult);
 
-  const pagedApplicants = useRecoilValue(pagingSelector({ applicants: seriesSelect }));
+  const rowsPerPage = useRecoilValue(rowsPerPageState);
+  const getMaxPage = (totalCount: number) => Math.ceil(totalCount / rowsPerPage);
 
   const [renewalDate, setRenewalDate] = useState('');
   const renewal = () => {
@@ -59,7 +64,11 @@ export default function Admin() {
       </RenewalWrapper>
       <MenuBar />
       {keyword ? <Status applicants={searchResult} /> : <Status applicants={pagedApplicants} />}
-      <Pagination />
+      {keyword ? (
+        <Pagination maxPage={getMaxPage(searchCount)} />
+      ) : (
+        <Pagination maxPage={getMaxPage(applicantCount)} />
+      )}
     </Wrapper>
   );
 }
