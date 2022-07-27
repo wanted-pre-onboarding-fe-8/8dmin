@@ -11,6 +11,6 @@ const TABLE_HEAD_LABELS = [
   '채용여부',
 ];
 
-const FILE_NAME = '크라우드 워커 지원 현황.csv';
+const FILE_NAME = '크라우드 워커 지원 현황';
 
 export { TABLE_HEAD_LABELS, FILE_NAME };

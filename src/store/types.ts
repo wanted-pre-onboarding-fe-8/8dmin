@@ -17,7 +17,7 @@ export interface MockCandidate {
   dateOfBirth: string;
   phone: string;
   email: string;
-  transportation: Transportation;
+  transportation: string[];
   region: string;
   accepted: boolean;
 }
