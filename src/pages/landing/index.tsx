@@ -2,7 +2,6 @@ import React from 'react';
 import { Button } from '@mui/material';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { borderRadius, fontSize } from '@mui/system';
 
 export default function Landing() {
   const navigate = useNavigate();
