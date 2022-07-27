@@ -20,8 +20,6 @@ export default function DownloadLink() {
 
   const applicants = useRecoilValue(sortSelect);
 
-  console.log(applicants, series);
-
   const handleClick = () => {
     let csvString = TABLE_HEAD_LABELS.join(',') + '\n';
 
