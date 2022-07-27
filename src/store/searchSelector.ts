@@ -40,13 +40,13 @@ const searchSelector = selectorFamily({
             return selectedDate;
           }
           case SELECT_NAME: {
-            const selectedName = applicantState.filter((candidate) => candidate.name === keyword);
+            const selectedName = applicantState.filter((applicant) => applicant.name === keyword);
             return selectedName;
           }
           case SELECT_GENDER: {
             const selectedGender = applicantState.filter(
-              (candidate) =>
-                candidate.gender === keyword || candidate.gender + DESTIGNATION === keyword,
+              (applicant) =>
+                applicant.gender === keyword || applicant.gender + DESTIGNATION === keyword,
             );
             return selectedGender;
           }
@@ -61,15 +61,15 @@ const searchSelector = selectorFamily({
             return selectedBirth;
           }
           case SELECT_TRANSPORTAION: {
-            const selectedTransportaion = applicantState.filter((candidate) =>
-              candidate.transportation.includes(keyword),
+            const selectedTransportaion = applicantState.filter((applicant) =>
+              applicant.transportation.includes(keyword),
             );
             return selectedTransportaion;
           }
           case SELECT_REGION: {
             const splitKeyword = keyword.split(' ');
-            const selectedRegion = applicantState.filter((candidate) => {
-              const integrated = candidate.region.replace(' ', '');
+            const selectedRegion = applicantState.filter((applicant) => {
+              const integrated = applicant.region.replace(' ', '');
               return splitKeyword.every((kwd) => integrated.includes(kwd));
             });
             return selectedRegion;
